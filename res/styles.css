@@ -1,0 +1,229 @@
+body {
+	font-size: 10pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0 7%;
+}
+#content {
+	width: 900px;
+	margin-top: 25px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+}
+a,
+a:link,
+a:visited,
+a:active,
+a:hover {
+	-moz-outline-style: none;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+a:hover {
+	text-decoration: none;
+}
+a:focus {
+	-moz-outline-style: none;
+	text-decoration: none;
+}
+.clear { clear: both; }
+
+img { border: none; }
+
+
+p {
+	text-align: left;
+}
+/* ------------------------------------------------------------------------- */
+
+#title {
+    margin: 0px auto;
+}
+#menu{
+	margin-top: 35px;	
+	}
+#menu ul
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+text-align: center;
+}
+
+#menu ul li { display: inline; }
+
+#menu ul li a
+{
+	-moz-outline-style: none;
+text-decoration: none;
+padding: .2em 1em;
+ opacity: 0.8;
+            filter:progid:DXImageTransform.Microsoft.Alpha( opacity=70 );
+}
+
+#menu ul li a:hover
+
+{
+	-moz-outline-style: none;text-decoration: none;
+opacity: 1;
+filter:progid:DXImageTransform.Microsoft.Alpha( opacity=100 );
+
+}
+#menu ul li a:focus
+
+{
+	-moz-outline-style: none;text-decoration: none;
+opacity: 1;
+filter:progid:DXImageTransform.Microsoft.Alpha( opacity=100 );
+
+}
+.block {
+    display: none;
+}
+
+.addon {
+    
+    padding: 30px;
+    margin-bottom: 30px;
+    background: transparent;
+}
+    .addon .flowBox {
+        width: 500px;
+        margin-right: 40px;
+        float: left;
+    }
+    .addon .discription {
+        margin-left: 540px;
+    }
+        .addon .title {
+                line-height: 1.3em;
+        }
+            .addon .title h3 {
+                margin: 0;
+                display: inline;
+            }
+            .addon .title .by {
+                margin-left: 2em;
+                font-size: 0.8em;
+                text-decoration: none;
+            }
+        .addon p {
+            font-size: 0.9em;
+        }
+        .addon .comment {
+            margin-top: 2em;
+            font-style: italic;
+        }
+        .addon .download {
+            font-size: 0.8em;
+            float: right;
+            margin: 0 0 2em 4em;
+            line-height: 1.5em;
+        }
+            .addon .download a {
+                font-weight: normal;
+            }
+
+.info { /* for example.php */
+	color: white;
+	background-color: transparent;    /*display: none;*/
+}
+.highslide_info{
+	color: #333;
+	background-color: transparent;
+}
+#maincontent {
+	max-width:800px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 20pt;
+	margin-left: auto;
+	min-height: 100%;
+}
+.exiftable 
+{
+	text-align: left;
+	margin-bottom: 5px;
+	border: 0px;
+	padding: 0px;
+	font-size: 9pt;
+	color: #333;
+}
+
+.exifodd 
+{
+	background-color: #ddd;
+}
+
+.exifeven 
+{
+	background-color: #f4f4f4;
+}
+
+.exifcell 
+{
+	padding: 1px;
+	font-size: 9pt;
+	color: #333;
+}
+caption{
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#cart{
+	display:none;
+	background-color: transparent;
+	width: 550px;
+	margin-right: auto;
+	margin-left: auto;
+	color: #999;
+}
+.shopping_button{
+	background-color: transparent;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+.hidden {
+    display: none;
+}
+div#social {
+	position:absolute;
+	bottom:0; /* stick to bottom */
+	width: 400px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-top: 20px;
+	padding-right: 10px;
+	padding-bottom: 25px;
+	padding-left: 10px;
+}
+.cart_button{
+	background-color: transparent;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	background-image: url(icons/shopping_cart.png);
+	background-repeat: no-repeat;
+	height: 40px;
+	width: 50px;
+	background-position: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+button hover{
+	background-color: #9F6;
+	
+}
+span.print {
+	display:inline-block;
+	line-height:20px;
+	padding-left:23px;
+	background-image: url(js/yoxview/images/icon_printer.gif);
+	background-repeat: no-repeat;
+}

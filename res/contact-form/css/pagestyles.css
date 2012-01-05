@@ -1,0 +1,139 @@
+* {
+	text-decoration: none;
+	font-size: 1em;
+	outline: none;
+	padding: 0;
+	margin: 0;
+	}
+code, kbd, samp, pre, tt, var, textarea, 
+input, select, isindex, listing, xmp, plaintext {
+	white-space: normal;
+	font-size: 1em;
+	font: inherit;
+}
+img {
+	border: 0;
+}
+
+body {
+	font-family: 'Droid Sans', Arial, Helvetica, sans-serif;/*Main font comes from Google Fonts App*/
+	font-size: 12px;
+	color: #282828;
+	background-color: #F9F9F9;
+	line-height: inherit;
+	height: 100%;
+	margin: 0px;
+}
+
+.outside {
+	background-image: url(../images/bg2.png);
+	background-repeat: repeat-x;
+	background-position: center top;
+	height: auto;
+	min-height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+h1 {
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 15px;
+	text-shadow: #fff 1px 1px 0px;
+	background-image: url(../images/pencil.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	line-height: 33px;
+}
+h2 {
+	font-size: 13px;
+	font-weight: normal;
+	margin-bottom: 15px;
+	text-shadow: #fff 1px 1px 0px;
+	padding-top: 5px;
+}
+h3 {
+	font-size: 13px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	text-shadow: #fff 1px 1px 0px;
+	padding-top: 5px;
+}
+
+/*Clearfix code*/
+/* new clearfix */
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+    }
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+/*Clearfix code*/
+
+.stylesheet-switcher {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 5px;
+	width: 140px;
+	margin-top: 10px;
+	margin-left: 10px;
+	font-size: 13px;
+	text-align: center;
+	background-color: #FAFAFA;
+	border: 1px solid #B1B1B1;
+	position: absolute;
+	font-weight: bold;
+	-moz-box-shadow: 0px 0px 10px #ccc;
+	-webkit-box-shadow: 0px 0px 10px #ccc;
+	box-shadow: 0px 0px 10px #ccc;
+}
+
+.stylesheet-switcher ul {
+	padding: 0px;
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+}
+.stylesheet-switcher ul li {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+
+.stylesheet-switcher ul li a {
+	font-size: 11px;
+	font-weight: bold;
+	color: #0099FF;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	border: 1px solid #C6C6C6;
+	background-color: #FFFFFF;
+	background: url('../images/button_bg.png') repeat center top;
+	text-shadow: #F5F5F5 1px 1px 0px;
+	display: block;
+	text-align: center;
+	/*Rounded corners*/
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	margin-bottom: 3px;
+}
+
+.stylesheet-switcher ul li a:hover {
+	color: #181818;
+	background-color: #FBFBFB;
+	background-image: none;
+}
+
+p {
+	padding-bottom: 10px;
+}
+

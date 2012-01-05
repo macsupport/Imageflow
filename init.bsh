@@ -1,0 +1,105 @@
+/**
+ * This script is run everytime an album is generated.
+ * It basically installs filters set in the user interface
+ */
+ import se.datadosen.jalbum.*;
+import se.datadosen.jalbum.*;
+import se.datadosen.util.*;
+import java.text.*;
+import java.lang.Number;
+import java.lang.StringBuilder;
+import java.awt.image.*;
+import se.datadosen.jalbum.SkinProperties;
+engine.setSlides(false);
+
+
+if(!imageName.equals("")) {
+		try {
+			File src = new File(imagePath);
+			File dest = new File(rootImageDirectory + "/.jalbum/");			
+			IO.copyFile(src, dest, true);
+			}
+		catch(IOException e) {}
+		try {
+			File src = new File(rootImageDirectory + "/.jalbum/" + imageName);
+			File dest = new File(rootOutputDirectory + "/res/");			
+			IO.copyFile(src, dest, true);
+		}
+		catch(IOException e) {}
+
+	}
+
+File src = new File(jqueryUIPath);
+File srcParentFile = src.getParentFile();
+if (srcParentFile != null)
+{
+	String srcParentString = srcParentFile.getName();
+	File dest = new File(resDirectory + "/" + srcParentString);
+	if (!dest.exists())
+	{
+		dest.mkdirs();
+	}
+	IO.copyDirectoryContent(srcParentFile, dest, true);
+}
+	
+
+if (zoomThumbs) {
+	ZoomFilter f = new ZoomFilter();
+	f.setZoomPercent(zoomPercent);
+	engine.addFilter(f, 4);
+}
+
+if (fixedShape) engine.addFilter(new FixedShapeFilter(), 4);
+
+if (grayscale) engine.addFilter(new GrayscaleFilter(), 5);
+
+if (watermark.length() > 0) {
+
+		try {int test = watermarkSize;}
+	   	catch ( e ) {watermarkSize = 36;}
+	
+		WatermarkFilter f = new WatermarkFilter();
+		f.setText(watermark);
+		f.setSize(watermarkSize);
+		f.setAlign(watermarkAlign);
+		f.setValign(watermarkValign);
+		f.setStrengthPercent(watermarkStrength);
+		f.setFace(slideWatermarkFontFace);
+		f.setStyle(slideWatermarkFontStyle);
+		engine.addFilter(f, 3);
+	}
+
+String audioExt=".mp3.wma.aiff";
+String imageExt=".jpg.jpeg.gif.png";
+String videoExt=".avi.qt.mov.mpg.mpeg.mpe.wmv.asf.swf.flv.mp4.divx.xvid";
+
+boolean isAudio(String s) {
+	int i;
+	if((i=s.lastIndexOf("."))!=-1)
+		return audioExt.indexOf(s.substring(i).toLowerCase())>=0;
+	else
+		return false;
+}
+boolean isImage(String s) {
+	int i;
+	if((i=s.lastIndexOf("."))!=-1)
+		return imageExt.indexOf(s.substring(i).toLowerCase())>=0;
+	else
+		return false;
+}
+boolean isVideo(String s) {
+	int i;
+	if((i=s.lastIndexOf("."))!=-1)
+		return videoExt.indexOf(s.substring(i).toLowerCase())>=0;
+	else
+		return false;
+}
+
+String addSlide(String s) {
+	int i=s.lastIndexOf("/");
+	if(i<0) return "slides/"+s;
+	return s.substring(0,i)+"/slides/"+s.substring(i+1);
+}
+
+
+

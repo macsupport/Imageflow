@@ -1,0 +1,63 @@
+/*  ContentFlowAddOn_carousel, version 1.1 
+ *  (c) 2008 - 2010 Sebastian Kutsch
+ *  <http://www.jacksasylum.eu/ContentFlow/>
+ *
+ *  This file is distributed under the terms of the MIT license.
+ *  (see http://www.jacksasylum.eu/ContentFlow/LICENSE)
+ *
+ *--------------------------------------------------------------------------*/
+
+
+.ContentFlowAddOn_carousel {
+	
+	overflow: visible;
+	margin-top: 0;
+	margin-right: 25px;
+	margin-bottom: 0;
+	margin-left: 25px;
+	padding-top: 15px;
+	padding-right: 0px;
+	padding-bottom: 20px;
+	padding-left: 0px;    /*overflow: hidden;*/
+}
+ 
+button{
+padding:5px;	
+}
+    #preButton,
+    #nextButton {
+ 
+	position:absolute;
+	width:30px;
+	height:30px;
+	cursor:pointer;
+	margin-top:-20px;
+	top:50%;
+	z-index:2;
+	
+    }
+    #preButton {
+        
+        left:-30px;
+    }
+       
+   #preButton:hover {
+       
+    }
+     #nextButton {
+      
+        right:-30px;
+	
+    }
+        
+    .ContentFlowAddOn_carousel #nextButton:hover {
+      
+    }
+
+    /* ----- styling of items ----- */
+        .ContentFlowAddOn_carousel .showCaption .item .caption {
+            display: block !important;
+        }
+
+
+   

@@ -1,0 +1,73 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body,td,th {
+	color: #333;
+	background-color: #FFF;
+	padding: 10px;
+	font-size: 12px;
+}
+a:link {
+	color: #999;
+}
+a:hover {
+	color: #C60;
+}
+.left {
+	padding: 10px;
+	float: left;
+}
+.right {
+	padding: 10px;
+	float: right;
+}
+#slider{
+width:200px;	
+}
+ul.icon{
+margin-top:8px;
+}
+ul.icon .ui-icon
+{
+display: inline-block !important;
+*display: inline;
+*float:left;
+}
+
+ul.icon li {
+		cursor: pointer;
+		margin-bottom:2px;
+		height:20px;
+		width:30px;
+		list-style: none outside none;
+		display: inline-block !important;
+		*display: inline;
+		*float:left;
+		position: relative;
+	}
+	ul.icon2 .ui-icon
+{
+display: inline-block !important;
+}
+#controlls {
+	margin: 30px auto 0 25px;
+	width: 220px;
+	text-align: center;
+	bottom: 0px;
+	height:22px;
+	position: relative;
+    }
+	
+	#circleButton{
+	text-align: center;
+	width:100px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom:8px;
+	}
+	
+#controlls button.play, #controlls button.nextButton, #controlls button.preButton, #controlls button.ff, #controlls button.slow{
+height:20px;
+width: 30px;
+margin:2px;	
+}	

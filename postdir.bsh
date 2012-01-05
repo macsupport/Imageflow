@@ -1,0 +1,17 @@
+
+	try {
+		File src = new File(skinDirectory + "/includes/player.swf");
+		File dest = new File(outputDirectory + "/");			
+		IO.copyFile(src, dest, true);
+	}
+	catch(IOException e) {}
+
+	try {
+File src = new File(skinDirectory + "/includes/PIE.htc");
+File dest = new File(outputDirectory + "/");			
+		IO.copyFile(src, dest, true);
+	}
+	catch(IOException e) {}
+
+
+ 

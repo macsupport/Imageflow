@@ -1,0 +1,1 @@
+<ja:include page="<%= new File(skinDirectory, "scripts/imageflow_css.inc").getAbsolutePath() %>"></ja:include>

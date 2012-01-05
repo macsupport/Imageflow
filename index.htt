@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<ja:include root page="favicon.inc" />
+<title><ja:if exists="albumTitle">${albumTitle}</ja:if><ja:else>${title}</ja:else></title>
+<meta http-equiv="content-type" content="text/html; charset=$textEncoding"/>
+<meta name="generator" content="$generator with the $skin skin"/>
+<ja:if test="<%= (gKeywords!=void && gKeywords!="") %>"><meta name="keywords" content="${gKeywords}"/></ja:if>
+<ja:if test="<%= (copyright!=void && copyright!="") %>"><meta name="copyright" content="${copyright}"/></ja:if>
+<!-- css --> 
+<ja:include page="<%= new File(skinDirectory, "scripts/jqueryUI.inc").getAbsolutePath() %>" />
+<ja:if test="${slideshowAddOn}" value="true"><link href="${resPath}/js/ContentFlowAddOn_slideshow.css" rel="stylesheet" type="text/css" /></ja:if>	
+<link rel="stylesheet" title="Standard" href="${stylePath}" type="text/css" media="screen" />
+
+<ja:if test="${lightBoxSelectionCL}" value="true"><script type="text/javascript" src="${resPath}/js/clearbox.js"></script></ja:if>
+<ja:if test="${lightBoxSelectionY}" value="true"><script type="text/javascript" src="${resPath}/js/yoxview/yoxview-init.js"></script></ja:if>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script> 
+<script type="text/javascript">
+google.load("jquery", "1");
+google.load("jqueryui", "1");
+<ja:if test="${useGoogleFont}" value="true">google.load("webfont", "1");</ja:if> 
+</script>
+<ja:if test="${showJqueryuiSwitcher}" value="true"><script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script></ja:if> 
+<ja:if test="${useGoogleFont}" value="true">${googleCode}</ja:if>
+<ja:if test="${lightBoxSelectionEZ}" value="true">
+<link rel="stylesheet" href="${resPath}/js/easybox/easybox.min.css" type="text/css" media="screen" charset="utf-8" />
+<script type="text/javascript" src="${resPath}/js/easybox/easybox.min.js"></script>
+</ja:if> 
+<ja:if test="${lightBoxSelectionP}" value="true">
+<link rel="stylesheet" href="${resPath}/js/prettyphoto/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+<script type="text/javascript" src="${resPath}/js/prettyphoto/js/jquery.prettyPhoto.js"></script>	</ja:if>
+ <ja:if test="${lightBoxSelectionC}" value="true">
+<link rel="stylesheet" href="${resPath}/js/colorbox/example<ja:if test="${color_theme}" value="Theme 1">1</ja:if><ja:if test="${color_theme}" value="Theme 2">2</ja:if><ja:if test="${color_theme}" value="Theme 3">3</ja:if><ja:if test="${color_theme}" value="Theme 4">4</ja:if><ja:if test="${color_theme}" value="Theme 5">5</ja:if>/colorbox.css" type="text/css" media="screen" charset="utf-8" />
+<script type="text/javascript" src="${resPath}/js/colorbox/jquery.colorbox-min.js"></script>	</ja:if>
+ <ja:if test="${lightBoxSelectionE}" value="true">
+ <script type="text/javascript" src="${resPath}/js/lightbox/jquery.lightbox.min.js"></script>
+ <link rel="stylesheet" href="${resPath}/js/lightbox/themes/<ja:if test="${evolutionSkin}" value="classic">classic</ja:if><ja:if test="${evolutionSkin}" value="default">default</ja:if><ja:if test="${evolutionSkin}" value="minimalist">minimalist</ja:if><ja:if test="${evolutionSkin}" value="evolution">evolution</ja:if><ja:if test="${evolutionSkin}" value="evolution-dark">evolution-dark</ja:if><ja:if test="${evolutionSkin}" value="classic-dark">classic-dark</ja:if><ja:if test="${evolutionSkin}" value="white-green">white-green</ja:if>/jquery.lightbox.css" type="text/css" media="screen" charset="utf-8" />
+ </ja:if>
+ 
+<%try{
+		File f=new File(skinDirectory ,"scripts/imageflow.inc");
+		File fcopy=new File(outputDirectory ,"imageflow.js");
+		engine.processTemplateFile(f, fcopy);		
+	}
+	catch(IOException e){System.out.println(e);}
+%>
+<%try{
+		File f=new File(skinDirectory ,"scripts/imageflow2.inc");
+		File fcopy=new File(outputDirectory ,"imageflow2.js");
+		engine.processTemplateFile(f, fcopy);		
+	}
+	catch(IOException e){System.out.println(e);}
+%>
+<%try{
+		File f=new File(skinDirectory ,"scripts/about.inc");
+		File fcopy=new File(outputDirectory ,"about.html");
+		engine.processTemplateFile(f, fcopy);		
+	}
+	catch(IOException e){System.out.println(e);}
+%>
+<%try{
+		File f=new File(skinDirectory ,"${resPath}/contact.php");
+		File fcopy=new File(outputDirectory ,"contact.php");
+		engine.processTemplateFile(f, fcopy);		
+	}
+	catch(IOException e){System.out.println(e);}
+%><%try{
+		File f=new File(skinDirectory ,"scripts/process.inc");
+		File fcopy=new File(outputDirectory ,"/res/contact-form/process.php");
+		engine.processTemplateFile(f, fcopy);		
+	}
+	catch(IOException e){System.out.println(e);}
+%>
+<ja:if test="${slideshowAddOn}" value="true"><%try{
+		File f=new File(skinDirectory ,"scripts/slideshow.inc");
+		File fcopy=new File(outputDirectory ,"/res/js/ContentFlowAddOn_slideshow.js");
+		engine.processTemplateFile(f, fcopy);		
+	}
+	catch(IOException e){System.out.println(e);}
+%></ja:if>
+<ja:if test="${addOns}" value="carousel"><%try{
+		File f=new File(skinDirectory ,"scripts/carousel.inc");
+		File fcopy=new File(outputDirectory ,"/res/js/ContentFlowAddOn_carousel.js");
+		engine.processTemplateFile(f, fcopy);		
+	}
+	catch(IOException e){System.out.println(e);}
+%></ja:if>
+
+<script language="javascript" type="text/javascript" src="${resPath}/js/contentflow2.js"></script>
+<script type="text/javascript" src="imageflow.js"></script>
+<script type="text/javascript" src="imageflow2.js"></script>
+ <% boolean first = true; %>
+
+<ja:if test="${showSearch}" value="true"><script>
+$(function() {
+		var projects = [<ja:fileiterator><ja:if exists="folder"></ja:if>
+<ja:else><ja:if not test="${first}">,</ja:if>
+			{
+				value: "${label}",
+				label: "${label}",			
+				icon: "${fileName}",
+				url: "${closeupPath}",
+				desc: "${category}",
+				imgN: "<%= imageNum-1 %>"
+			}<% first = false; %></ja:else></ja:fileiterator>
+		];
+		var watermark = 'Search Images';
+		var searchBox;
+
+	function setWatermark(){
+     searchBox = $('#project');
+     searchBox.val( watermark );
+     searchBox.bind('click',clearWatermark);
+	}
+
+	function clearWatermark(){
+    if( $(this).val() == watermark){
+         $(this).val('');
+         searchBox.unbind('click',clearWatermark);
+    }
+	}
+
+	$(document).ready(function(){
+   setWatermark();
+	});
+		$( "#project" ).autocomplete({
+			minLength: 0,
+			source: projects,
+			focus: function( event, ui ) {
+				$( "#project" ).val( ui.item.label );
+			
+				return false;
+			},
+			select: function( event, ui ) {
+				$( "#project" ).val( ui.item.label );
+				$( "#project-imgN" ).val( ui.item.imgN );
+				$( "#project-id" ).val( ui.item.value );				
+				$( "#project-icon" ).attr( "src", "thumbs/" + ui.item.icon );
+				$( "#project-description" ).html( ui.item.desc );
+				$( "#project-label" ).html( ui.item.label );
+				$( "#project-link" ).attr("href", ui.item.url );
+				$( "#project-link" ).attr("title", ui.item.label );
+				
+				return false;
+			},
+			 
+			close: function(event, ui ) {
+			function runEffect() {
+			// get effect type from 
+			var move = $( "#project-imgN" ).val();
+			
+			// run the effect
+			
+			cf.moveTo(move);
+			//cf.setConfig({flowSpeedFactor:5});
+		};
+        
+         runEffect(); 
+			}
+		})
+		.data( "autocomplete" )._renderItem = function( ul, item ) {
+			return $( "<li></li>" )
+				.data( "item.autocomplete", item )
+				.append( "<a>" + item.label + "</a>" )
+				
+				.appendTo( ul );
+		};
+
+	});
+	</script></ja:if>
+<ja:if test="${slideshowAddOn}" value="true"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_slideshow.js"></script></ja:if><ja:if test="${addOns}" value="circle"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_circle.js"></script></ja:if><ja:if test="${addOns}" value="roundabout"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_roundabout.js"></script></ja:if><ja:if test="${addOns}" value="carousel"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_carousel.js"></script><link href="${resPath}/js/ContentFlowAddOn_carousel.css" rel="stylesheet" type="text/css" /></ja:if><ja:if test="${addOns}" value="screwdriver"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_screwdriver.js"></script></ja:if><ja:if test="${addOns}" value="vertical"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_vertical.js"></script></ja:if><ja:if test="${addOns}" value="stack"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_stack.js"></script></ja:if><ja:if test="${addOns}" value="wave"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_wave.js"></script></ja:if><ja:if test="${addOns}" value="gallery"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_gallery.js"></script></ja:if><ja:if test="${addOns}" value="gallery2"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_gallery2.js"><link href="${resPath}/js/ContentFlowAddOn_gallery2.css" rel="stylesheet" type="text/css" /></script></ja:if><ja:if test="${addOns}" value="waterwheel"><script language="javascript" type="text/javascript" src="${resPath}/js/ContentFlowAddOn_waterwheel.js"></script><link href="${resPath}/js/ContentFlowAddOn_waterwheel.css" rel="stylesheet" type="text/css" /></ja:if>
+
+
+</head>
+<body>
+<div id="maincontent">
+<ja:if test="${menuControl}" value="Side Menu"><ja:include page="<%= new File(skinDirectory, "scripts/menu_side.inc").getAbsolutePath() %>" /></ja:if>
+<ja:if test="${menuControl}" value="Top Menu"><ja:if test="${showJqueryuiSwitcher}" value="true"><div class="upper_right"><div id="ThemeRoller"></div></div></ja:if><ja:include page="<%= new File(skinDirectory, "scripts/menu.inc").getAbsolutePath() %>" /></ja:if>
+<ja:if test="${menuControl}" value="Bottom Menu"><ja:if test="${showJqueryuiSwitcher}" value="true"><div class="upper_right"><div id="ThemeRoller"></div></div></ja:if><ja:include page="<%= new File(skinDirectory, "scripts/menu_b.inc").getAbsolutePath() %>" /></ja:if>
+<ja:if test="${showJqueryuiSwitcher}" value="true"><div class="upper_right"><div id="ThemeRoller"></div></div></ja:if>
+
+<div id="title"><ja:if test="${menuControl}" value="No Menu"> 
+<div id="about_show"><ul class="icon2"> 
+<ja:if test="${enableAbout}" value="true"><li class="ui-state-default ui-corner-all"><a <ja:if test="${lightBoxSelectionC}" value="true">class="colorbox_about"</ja:if><ja:if test="${lightBoxSelectionE}" value="true">class="lightbox"</ja:if><ja:if test="${lightBoxSelectionCL}" value="true">rel="clearbox[width=900,,height=700]"</ja:if><ja:if test="${lightBoxSelectionP}" value="true">rel="prettyPhoto"</ja:if><ja:if test="${lightBoxSelectionEZ}" value="true">rel="lightbox"</ja:if> href="${rootPath}/about.html<ja:if test="${lightBoxSelectionE}" value="true">?lightbox[iframe]=true&lightbox[width]=750&lightbox[height]=600</ja:if><ja:if test="${lightBoxSelectionP}" value="true">?iframe=true&width=80%&height=80%</ja:if>"  title="About"><span class="ui-icon ui-icon-info"></span></a> </li></ja:if>
+<ja:if test="${enableContact}" value="true"> <li class="ui-state-default ui-corner-all"><a <ja:if test="${lightBoxSelectionC}" value="true">class="colorbox_contact"</ja:if><ja:if test="${lightBoxSelectionE}" value="true">class="lightbox"</ja:if> <ja:if test="${lightBoxSelectionCL}" value="true">rel="clearbox[width=900,,height=700]"</ja:if><ja:if test="${lightBoxSelectionP}" value="true">rel="prettyPhoto"</ja:if><ja:if test="${lightBoxSelectionEZ}" value="true">rel="lightbox"</ja:if>  href="${rootPath}/res/contact.php<ja:if test="${lightBoxSelectionE}" value="true">?lightbox[iframe]=true&lightbox[width]=750&lightbox[height]=600</ja:if><ja:if test="${lightBoxSelectionP}" value="true">?iframe=true&width=60%&height=80%</ja:if>"  target="yoxview" title="Contact"> <span class="ui-icon ui-icon-mail-closed"></span></a> </li></ja:if>
+<ja:if test="${showCart}" value="true"><li class="ui-state-default ui-corner-all"><a id="show_basket" href="#" title="Show Cart"><span class="ui-icon ui-icon-cart"></span></a></li></ja:if>
+<ja:if test="${showSearch}" value="true"><li class="ui-state-default ui-corner-all"><a id="show_search2" href="#"  title="Show Search"><span class="ui-icon ui-icon-search"></span></a></li></ja:if>
+<li  class="ui-state-default ui-corner-all"><a  class="<ja:if test="${lightBoxSelectionC}" value="true">colorbox_help</ja:if><ja:if test="${lightBoxSelectionE}" value="true">lightbox</ja:if><ja:if test="${lightBoxSelectionY}" value="true">yoxview</ja:if>" <ja:if test="${lightBoxSelectionP}" value="true">rel="prettyPhoto"</ja:if><ja:if test="${lightBoxSelectionEZ}" value="true">rel="lightbox"</ja:if>  href="${resPath}/info.html<ja:if test="${lightBoxSelectionE}" value="true">?lightbox[iframe]=true&lightbox[width]=800&lightbox[height]=600</ja:if><ja:if test="${lightBoxSelectionP}" value="true">?iframe=true&width=80%&height=80%</ja:if>" title="Show Help"><span class="ui-icon ui-icon-help"></span></a> </li>
+<ja:if test="${showSocial}" value="true"><ja:if test="${socialSeparate}" value="true"></ja:if><ja:else><li><a class="addthis_counter addthis_pill_style"></a></li></ja:else></ja:if>
+</ul></div></ja:if>
+<ja:if test="${showAlbumTitleBar}" value="true"><h1>${albumTitle}</h1></ja:if>
+ <ja:if test="${showAlbumDescription}" value="true"><br/>${description}</ja:if>
+
+</div>
+
+ <div id="dialog2" class="ui-widget-content ui-corner-all" style="display:none;">
+	 <img src="${resPath}/help.png"  width="260" height="354" alt="Control Panel" /></div>
+<noscript><div style="color:#fff;text-align:center;width:500px;position:absolute;top:200px">
+    You really, really need to enable javascript to view this page.<br/>
+    You know, it's about javascript.<br/>
+    <br/>
+    And it will make your life much easier, but it's up to you.
+    </div></noscript> 
+	
+	
+<div id="contentFlow" class="ContentFlow">
+
+
+    <div class="loadIndicator"><div class="indicator"></div></div>
+    <div class="flow"><ja:include page="<%= new File(skinDirectory, "scripts/gallery.inc").getAbsolutePath() %>" /></div>
+   <ja:if test="${addOns}" value="carousel"></ja:if><ja:else><div class="globalCaption"></div></ja:else>
+    <ja:if test="${addOns}" value="carousel"><button id="preButton" class="preButton">Previous</button><button id="nextButton" class="nextButton">Next</button></ja:if>
+	<ja:if test="${slideshowAddOn}" value="false"><ja:if test="${addOns}" value="circle"><div id="circleButton"><button id="preButton" class="preButton">Previous</button><button id="nextButton" class="nextButton">Next</button></div></ja:if><ja:if test="${slideshowAddOn}" value="false">
+	<ja:if test="${addOns}" value="stack"><div id="circleButton"><button id="preButton" class="preButton">Previous</button><button id="nextButton" class="nextButton">Next</button></div></ja:if></ja:if>
+	 <ja:if test="${addOns}" value="vertical"><button id="preButton" class="preButton">Previous</button><button id="nextButton" class="nextButton">Next</button></ja:if>
+	<ja:if test="${addOns}" value="wave"><div id="circleButton"><button id="preButton" class="preButton">Previous</button><button id="nextButton" class="nextButton">Next</button></div></ja:if>
+	<ja:if test="${addOns}" value="waterwheel"><div id="circleButton"><button id="preButton" class="preButton">Previous</button><button id="nextButton" class="nextButton">Next</button></div></ja:if>
+	<ja:if test="${addOns}" value="roundabout"><div id="circleButton"><button id="preButton" class="preButton">Previous</button><button id="nextButton" class="nextButton">Next</button></div></ja:if></ja:if>
+	
+	
+	 <ja:if test="${slideshowAddOn}" value="true"><div id="controlls" class="ui-widget-header ui-corner-all" style="display:none;">
+	<ja:if test="${slideshowNextPrev}" value="true"><button id="preButton_slide" class="preButton">Previous</button></ja:if>
+	<ja:if test="${slideshowFirstLast}" value="true"><button id="slow_slide" class="slow">slower</button></ja:if>
+	<button id="play_slide" class="play">play</button>
+	<ja:if test="${slideshowFirstLast}" value="true"><button id="ff_slide" class="ff">faster</button></ja:if>
+	<ja:if test="${slideshowNextPrev}" value="true"><button id="nextButton_slide" class="nextButton">Next</button></ja:if>
+</div> </ja:if>
+<ja:if test="${showScrollbar}" value="true"><div class="slider"><div class="position"></div></div><br></ja:if>
+
+<ja:if test="${socialSeparate}" value="true">
+  <ja:if test="${showSocial}" value="true"><!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style ">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<!-- AddThis Button END --> </ja:if> 
+</ja:if>	
+<ja:if test="${showSearch}" value="true">
+<div id="project1" class="ui-widget-header ui-corner-all" style="display:none;">
+<div id="project-label"></div>
+	<a href="#" class="<ja:if test="${lightBoxSelectionC}" value="true">colorbox</ja:if><ja:if test="${lightBoxSelectionCL}" value="true">clearbox</ja:if><ja:if test="${lightBoxSelectionE}" value="true">lightbox</ja:if><ja:if test="${lightBoxSelectionY}" value="true">yoxview</ja:if>" <ja:if test="${lightBoxSelectionP}" value="true">rel="prettyPhoto"</ja:if><ja:if test="${lightBoxSelectionEZ}" value="true">rel="lightbox"</ja:if> id="project-link"><img id="project-icon" src="${resPath}/transparent_1x1.png"/></a>
+	<input id="project"/>
+	<input type="hidden" id="project-id"/>
+	<p id="project-label"></p>
+	<p id="project-description"></p>
+    <p id="project-imgN"></p>
+	</div>
+</div></ja:if>
+<ja:if test="${showCart}" value="true"> <div id="basket" class="ui-widget-header ui-corner-all" style="display:none">
+			<h3>Shopping Cart</h3></ br> 
+            <div class="simpleCart_items"></div>
+            <div id="cartTotal"> SubTotal: <span class="simpleCart_total"></span> <br />
+              Tax: <span class="simpleCart_taxCost"></span> <br />
+              Shipping: <span class="simpleCart_shippingCost"></span> <br />
+              -----------------------------<br />
+              <strong>Total: </strong><span class="simpleCart_total"></span> </div>
+            <a href="javascript:;" class="simpleCart_empty fg-button ui-state-default ui-corner-all">Empty Cart</a>
+			<a href="javascript:;" class="simpleCart_checkout fg-button ui-state-default fg-button-icon-right ui-corner-all">Checkout<span class="ui-icon ui-icon-cart"></span></a>
+</div></ja:if>
+</ja:if>
+
+
+	
+		 <ja:if test="${showSocial}" value="true">
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=drmikey"></script></ja:if>
+<ja:if test="${enableGoogleAnalytics}" value="true"><script>
+   var _gaq = [['_setAccount', '${googleAnalytics}'], ['_trackPageview']];
+   (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+   })(document, 'script');
+  </script></ja:if>			 
+</body>
+</html>
+
+

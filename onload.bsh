@@ -1,0 +1,1416 @@
+import se.datadosen.component.*;
+import se.datadosen.jalbum.event.*;
+import java.awt.*;
+import java.awt.event.*;
+import se.datadosen.jalbum.JCustomPanel;
+import se.datadosen.jalbum.JAlbumContext;
+import se.datadosen.jalbum.PluginContext;
+import se.datadosen.jalbum.EditPanel;
+import se.datadosen.jalbum.SkinProperties;
+import se.datadosen.util.Item;
+import nl.tomcee.simplexbf.*;
+import nl.tomcee.fontselector.FontSelector;
+import javax.swing.ButtonGroup;
+import se.datadosen.jalbum.DeferredChooser;
+
+
+
+window.addJAlbumListener(new JAlbumAdapter() {
+
+  String IndexPageName;String PageExtension;int localThumbMaxH ,localThumbMaxW;
+
+  public void albumCreationStarted(JAlbumEvent e) {
+   IndexPageName = engine.getIndexPageName();
+   PageExtension = engine.getPageExtension();
+
+    engine.setIndexPageName("index");
+    engine.setPageExtension(".html");
+
+  }
+
+  public void albumCreationFinished(JAlbumEvent e) {
+   engine.setIndexPageName("index");
+   engine.setPageExtension(".html");
+  }
+
+});
+
+
+
+
+
+GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+fontList = ge.getAvailableFontFamilyNames();
+
+
+/**
+ * Our custom edit view panel
+ */
+class CustomUI extends JCustomPanel {
+
+	
+	JTextField item_Size = new JSmartTextField("8.5 x 11",10);
+	JTextField item_price = new JSmartTextField("0.00",5);
+	JTextField item_name = new JSmartTextField("Name",30);
+
+	
+	public CustomUI(JAlbumContext context) {
+		super(context);
+
+		
+		
+		// Set up the UI
+		setBackground(SystemColor.text);
+		setOpaque(true);
+		add("",new JLabel("Name"));
+		add("", item_name);
+		add("br",new JLabel("Image Size"));
+		add("", item_Size);
+		add("br",new JLabel("image Price"));
+		add("", item_price);
+		
+
+		// Make sure changes are saved even if one doesn't move between images
+		FocusListener fl = new FocusAdapter() {
+			public void focusLost(FocusEvent e) {
+				saveUI();
+			}
+		};
+		ActionListener al = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveUI();
+			}
+		};
+		item_Size.addFocusListener(fl);
+		item_price.addFocusListener(fl);
+		item_name.addFocusListener(fl);
+	
+
+		// Subclasses like us should call init after components are initiated
+		init();
+	}
+}
+
+// Make some convenient references available
+JAlbumContext context = JAlbumContext.getInstance();
+PluginContext pc = context.getPluginContext();
+EditPanel editPanel = pc.getEditPanel();
+
+CustomUI customUI1 = new CustomUI(context);
+// Install our custom panel in Jalbum's edit panel
+editPanel.addCustomTab("Shopping Cart", customUI1);
+
+
+class CustomUI extends JCustomPanel {
+
+JSmartTextArea imageDescription = new JSmartTextArea("Enter Text or HTML Here");
+		imageDescription.setEditable(true);
+		imageDescription.setLineWrap(true);
+		imageDescription.setRows(4);
+		imageDescription.setColumns(20);
+		imageDescription.setWrapStyleWord(true);	
+
+	public CustomUI(JAlbumContext context) {
+		super(context);
+		setBackground(SystemColor.text);
+		setOpaque(true);
+	add("",new JLabel("Image Description"));
+		add("br hfill", new JScrollPane(imageDescription, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+		
+		FocusListener fl = new FocusAdapter() {
+			public void focusLost(FocusEvent e) {
+				saveUI();}};
+		ActionListener al = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveUI();}};
+		imageDescription.addFocusListener(fl);
+		
+		init();
+	}
+}
+
+PluginContext pc = context.getPluginContext();
+EditPanel editPanel = pc.getEditPanel();
+CustomUI customUI = new CustomUI(context);
+editPanel.addCustomTab("Image Info", customUI);
+
+class CustomUI extends JCustomPanel {
+add("br",new JLabel("Enter links to Videos from Youtube, Vimeo, Page Links, etc."));
+JCheckBox enableVideoLink = new JCheckBox("Use link to Video for this Image", false);
+JSmartTextArea videoLink = new JSmartTextArea("");
+		videoLink.setEditable(true);
+		videoLink.setLineWrap(true);
+		videoLink.setRows(2);
+		videoLink.setColumns(20);
+		videoLink.setWrapStyleWord(true);	
+	public CustomUI(JAlbumContext context) {
+		super(context);
+		setBackground(SystemColor.text);
+		setOpaque(true);
+
+		add("br hfill", new JScrollPane(videoLink, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+		
+		FocusListener fl = new FocusAdapter() {
+			public void focusLost(FocusEvent e) {
+				saveUI();}};
+		ActionListener al = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveUI();}};
+		videoLink.addFocusListener(fl);
+		
+		init();
+	}
+}
+PluginContext pc = context.getPluginContext();
+EditPanel editPanel = pc.getEditPanel();
+CustomUI customUI6 = new CustomUI(context);
+editPanel.addCustomTab("Enter External Links Here", customUI6);
+
+
+
+
+
+ControlPanel ui = new ControlPanel() {
+JCheckBox enableVideoLink = new JCheckBox("Use link to Video for this Image", false);
+JCheckBox donation = new JCheckBox("I Registered", false);
+
+//Evolution
+
+JCheckBox showEvoLabel = new JCheckBox("Show Evolution Label", true);
+JComboBox evolutionSkin = new JComboBox(new Object[]{"default", "classic", "minimalist", "classic-dark", "evolution", "evolution-dark", "white-green"});
+JComboBox emergefrom = new JComboBox(new Object[]{"top", "bottom", "none"});
+JCheckBox showEvoComment = new JCheckBox("Show Comment", true);
+JCheckBox evolutionModal = new JCheckBox("Make Popup Modal", false);
+JTextField evolutionOverlay = new JSmartTextField("8", 1);
+JColorSelector evolutionBackground = new JColorSelector(new JSmartTextField(6)); 
+evolutionBackground.setColor("#FFFFFF");
+
+
+
+
+
+//Clearbox
+
+
+JCheckBox showLabel = new JCheckBox("Show ClearBox Label", true);
+JCheckBox showComment = new JCheckBox("Show ClearBox Comment", true);
+JColorSelector CB_SlideShowBarColor = new JColorSelector(new JSmartTextField(6));
+JCheckBox showCBGal = new JCheckBox("Enable Gallery Function", true);
+JTextField CB_ShowGalName = new JSmartTextField("HighLight",25);
+JComboBox showCB_ShowGalName = new JComboBox(new Object[]{"on", "off"});
+JColorSelector CB_HideColor = new JColorSelector("Lightbox Background Color",new JSmartTextField(6));
+JTextField CB_ThumbsBGOpacity = new JSmartTextField("35", 3);
+JColorSelector CB_ThumbsBGColor = new JColorSelector("Thumbnail Background Color",new JSmartTextField(6));
+JColorSelector CB_ImgBorderColor = new JColorSelector("Lightbox Image Border Color",new JSmartTextField(6));
+JComboBox CB_FontT = new JComboBox(new Object[]{ "Verdana", "Arial", "Times", "Helvetica", "Georgia", "Geneva", "Courier" });
+JComboBox CB_FontC = new JComboBox(new Object[]{ "Verdana", "Arial", "Times", "Helvetica", "Georgia", "Geneva", "Courier" });
+JTextField CB_ImgBorder = new JSmartTextField("5", 2);
+JTextField CB_TxtHMax = new JSmartTextField("50", 3);
+JTextField CB_FontSizeT = new JSmartTextField("12", 2);
+JTextField CB_FontSizeC = new JSmartTextField("11", 2);
+JColorSelector CB_FontColorT = new JColorSelector("Font Color for Popup",new JSmartTextField(6));
+JColorSelector CB_FontColorC = new JColorSelector("Font Color for Popup",new JSmartTextField(6));
+JSlider CB_RoundPix = new JSlider(JSlider.HORIZONTAL, 0, 12, 12);
+JComboBox CB_ShowURL = new JComboBox(new Object[]{"off", "on"});
+JComboBox CB_ImgNum = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_TextNav = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_NavTextImgPrvNxt = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_ShowThumbnails = new JComboBox(new Object[]{"auto", "always", "off"});
+JComboBox CB_NavTextImgPrv = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_NavTextImgNxt = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_NavTextImgFull = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_NavTextImgDL = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_Animation = new JComboBox(new Object[]{ "double", "normal", "off", "warp", "grow" });
+JComboBox CB_ShowDL = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_OSD = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_CloseOnH = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_ImgRotation = new JComboBox(new Object[]{"off", "on"});
+JComboBox CB_NavTextImgRot = new JComboBox(new Object[]{"on", "off"});
+JComboBox CB_Config = new JComboBox(new Object[]{"default", "grow_transparent"});
+JTextField CB_FontSize = new JSmartTextField("12", 2);
+JTextField CB_HideOpacity = new JSmartTextField("85", 3);
+JCheckBox SlideshowStart = new JCheckBox("Start Slideshow Automatically", false);
+JComboBox CB_SimpleDesign = new JComboBox(new Object[]{"off", "on"});
+JComboBox CB_Preload = new JComboBox(new Object[]{"on", "off"});
+JTextField CB_SlShowTime = new JSmartTextField("3", 2);
+JTextField CB_AnimSpeed = new JSmartTextField("600", 4);
+JTextField CB_ImgMinWidth = new JSmartTextField("200", 4);
+JTextField CB_ImgMinHeight = new JSmartTextField("160", 4);
+JTextField CB_SlideShowBarOpacity = new JSmartTextField("50", 3);
+JTextField CB_TextH = new JSmartTextField("35", 3);
+
+JTextField imgOpacity = new JSmartTextField("80", 2);
+JCheckBox showImageCount  = new JCheckBox("Display the number of photos in folders", true);
+
+JComboBox transitionEffect = new JComboBox(new Object[]{"easeOutStrong", "easeOut", "easeIn", "easeBoth", "bounceOut","bounceIn","bounceBoth","backOut","backIn", "backBoth", "elasticBoth", "elasticIn", "elasticOut", "EaseFrom","EaseTo" });
+
+
+
+JTextField imagePath = new JSmartTextField("Image Path",25);
+JTextField imageName = new JSmartTextField("",25);
+JTextField jqueryUIPath = new JSmartTextField("CSS File Path",25);
+JTextField jqueryUIName = new JSmartTextField("CSS File Name",25);
+JButton fileOpenButton=new JButton("Open File");
+JButton fileOpenButton2=new JButton("Open File");
+
+
+
+
+ButtonGroup labelFolder2 = new ButtonGroup();
+JRadioButton bgNoImage = new JRadioButton("Use No Background Image");
+JRadioButton enableBackgroundImage = new JRadioButton("Use Your Own Image as Background");
+JCheckBox enableBackgroundImageRandom = new JCheckBox("Enable Random Image Background on each Page load (Uses Slide images)", false);
+labelFolder2.add(bgNoImage);
+labelFolder2.add(enableBackgroundImage);
+bgNoImage.setSelected(true);
+
+ButtonGroup jqueryThemes = new ButtonGroup();
+JRadioButton jqueryUINone = new JRadioButton("Don't Use Themes");
+JRadioButton jqueryUIDefault = new JRadioButton("Use Included Themes");
+JRadioButton jqueryUICustom = new JRadioButton("Use Your Own Custom Theme");
+jqueryThemes.add(jqueryUINone);
+jqueryThemes.add(jqueryUIDefault);
+jqueryThemes.add(jqueryUICustom);
+jqueryUIDefault.setSelected(true);
+
+//PrettyPhoto
+
+
+JComboBox animationSpeed = new JComboBox(new Object[]{ "normal", "fast", "slow"});
+
+JComboBox Themes = new JComboBox(new Object[]{ "light_rounded", "light_square", "dark_rounded", "dark_square", "facebook"});
+JColorSelector HideColor = new JColorSelector("Lightbox Background Overlay Color",new JSmartTextField(6));
+JCheckBox galleryShow = new JCheckBox("Enable Navigation of Images in Popup", false);
+JCheckBox galleryAutoplay = new JCheckBox("Enable Automatic Video Play", false);
+JCheckBox overlayShow = new JCheckBox("Enable Shadow Overlay", true);
+JCheckBox showTitle = new JCheckBox("Show Title in Popup", true);
+JCheckBox allowresize = new JCheckBox("Enable Image Expand Button", true);
+JTextField HideOpacity = new JSmartTextField("70", 2);
+JTextField slideshowInterval = new JSmartTextField("4000", 4);
+JTextField boxPadding = new JSmartTextField("15", 2);
+JTextField default_width = new JSmartTextField("500", 3);
+JTextField default_height = new JSmartTextField("344", 3);
+JCheckBox modal = new JCheckBox("Close button only will close window", false);
+JCheckBox prettyphotoGallery = new JCheckBox("Enable Gallery in Popup", true);
+JTextField prettyphotoGalleryName = new JSmartTextField("LightBoxes Gallery", 25);
+
+JCheckBox overlay_gallery = new JCheckBox("Show Thumbnails as overlay in Popup", true);
+JCheckBox hideflash = new JCheckBox("Show Thumbnails as overlay in Popup", true);
+JCheckBox autoplay_slideshow = new JCheckBox("Autoplay Image Slideshow", false);
+JTextField videoSizeP = new JSmartTextField("640x480", 10);
+
+//ColorBox
+
+JTextField color_speed = new JSmartTextField("300", 4);
+JTextField color_opacity = new JSmartTextField("8", 1);
+JCheckBox color_loop = new JCheckBox("Loop Slideshow", true);
+JCheckBox colorSlideshow = new JCheckBox("Enable Slideshow", false);
+
+JCheckBox color_overlayClose = new JCheckBox("CLose by Clicking Overlay", true);
+JCheckBox colorAutoSlideshow = new JCheckBox("Auto Slideshow", false);
+JComboBox color_theme = new JComboBox(new Object[]{"Theme 1", "Theme 2", "Theme 3", "Theme 4", "Theme 5" });
+JTextField colorSlideshowSpeed = new JSmartTextField("2500", 4);
+
+
+
+
+//YoxView
+JCheckBox showYoxButtons = new JCheckBox("Show Extra Buttons in Popup", true);
+JCheckBox showYoxPrint = new JCheckBox("Show Print Image Button", false);
+JCheckBox showYoxDownload = new JCheckBox("Show Download Image Button", true);
+JCheckBox autoPlay = new JCheckBox("Autoplay Slideshow", false);
+JColorSelector yoxBackgroundColor = new JColorSelector("Overlay Background Color",new JSmartTextField(6));
+yoxBackgroundColor.setColor("#00000");
+JColorSelector infoBackColor = new JColorSelector("Info Background Color",new JSmartTextField(6));
+infoBackColor.setColor("#00000");
+JTextField backgroundOpacity = new JSmartTextField("8", 2); 
+JTextField buttonsFadeTime = new JSmartTextField("500", 4); 
+JCheckBox cacheImagesInBackground = new JCheckBox("Cache Images In Background", false);
+JTextField controlsInitialFadeTime = new JSmartTextField("1500", 4); 
+JTextField controlsInitialDisplayTime = new JSmartTextField("1000", 4); 
+JTextField infoBackOpacity = new JSmartTextField("5", 2); 
+
+ JCheckBox loopPlay = new JCheckBox("Loop The Slideshow", true);              
+ JTextField playDelay = new JSmartTextField("3000", 4);               
+ JTextField popupMargin = new JSmartTextField("20", 3);             
+  JTextField titlePadding = new JSmartTextField("6", 2);   
+JTextField popupResizeTime = new JSmartTextField("600", 4);             
+JCheckBox renderButtons = new JCheckBox("Show Buttons", true);
+
+ JCheckBox autoHideMenu = new JCheckBox("Auto Hide Menu", true); 
+     JCheckBox autoHideInfo = new JCheckBox("Auto Hide Info Bar", true);           
+ JCheckBox renderMenu = new JCheckBox("Show Menu", true);                  
+  JCheckBox showBarsOnOpen = new JCheckBox("Show Bars On Open", true);             
+  JCheckBox showButtonsOnOpen = new JCheckBox("Show Buttons On Open", true);           
+  JComboBox titleAttribute = new JComboBox(new Object[]{"alt", "title" });
+  JTextField titleDisplayDuration = new JSmartTextField("3000", 4);         
+
+
+
+ButtonGroup resourceFolder = new ButtonGroup();
+JRadioButton lightBoxSelectionE = new JRadioButton("Evolution");
+JRadioButton lightBoxSelectionP = new JRadioButton("PrettyPhoto");
+JRadioButton lightBoxSelectionC = new JRadioButton("ColorBox");
+JRadioButton lightBoxSelectionCL = new JRadioButton("ClearBox");
+//JRadioButton lightBoxSelectionY = new JRadioButton("YoxView");
+JRadioButton lightBoxSelectionEZ = new JRadioButton("EasyBox");
+resourceFolder.add(lightBoxSelectionE);
+resourceFolder.add(lightBoxSelectionP);
+resourceFolder.add(lightBoxSelectionC);
+resourceFolder.add(lightBoxSelectionCL);
+//resourceFolder.add(lightBoxSelectionY);
+resourceFolder.add(lightBoxSelectionEZ);
+lightBoxSelectionP.setSelected(true);
+
+
+JCheckBox showExif = new JCheckBox("Enable EXIF Information", false);
+
+
+
+skinTitle = "ImageFlow";
+skinVersion = "4.1";
+skinAuthor = "DrMikey";
+skinDescription = "Jalbum ImageFlow using ContentFlow and YoxView LightBox Javascript";
+
+
+// Album Info tab
+
+
+JCollapsiblePanel info = new JCollapsiblePanel() {
+
+JTextField albumTitle = new JSmartTextField("ImageFlow",32);
+JTextField description = new JSmartTextField("Image Gallery",32);
+JCheckBox showAlbumTitleBar = new JCheckBox("Show Title in Header", true);
+JCheckBox showAlbumDescription = new JCheckBox("Show Description in Header", false);
+JTextField gKeywords = new JSmartTextField("",32);
+JTextField copyright = new JSmartTextField("2010",6);
+JCheckBox showFileName = new JCheckBox("Show Labels under Thumbnail", true);
+JCheckBox showImageCount  = new JCheckBox("Display the number of photos in folders", true);
+
+
+JTextArea googleAnalytics = new JSmartTextArea(4,40);
+ JScrollPane googleAnalyticsPane = new JScrollPane(googleAnalytics);
+
+
+
+
+{
+		
+		
+		
+		
+		ComponentUtilities.whenSelectedEnable(showAlbumTitleBar, new JComponent[] {albumTitle});
+		ComponentUtilities.whenSelectedEnable(showAlbumDescription, new JComponent[] {description});
+			
+		setTitle("ImageFlow Album Info");
+		getContentPanel().setLayout(new RiverLayout());
+		setExpanded(false);
+	
+ControlPanel albumPanel = new ControlPanel();
+albumPanel.add(showAlbumTitleBar);
+albumPanel.add("br",new JLabel("Page Title"));
+albumPanel.add("", albumTitle);
+albumPanel.add("br", showAlbumDescription);
+albumPanel.add("br",new JLabel("Page Description"));
+albumPanel.add("", description);
+albumPanel.add("br", new JLabel("Keywords"));
+albumPanel.add("tab hfill", gKeywords);
+albumPanel.add("br", new JLabel("Copyright"));
+albumPanel.add("tab hfill", copyright);
+//albumPanel.add("br", showFileName);
+//albumPanel.add("br", new JLabel(""));
+//albumPanel.add("br", showImageCount);
+
+
+
+
+add("br,vfill", albumPanel);
+}		
+};
+
+
+
+JCollapsiblePanel footerbar = new JCollapsiblePanel() {
+JComboBox menuControl = new JComboBox(new Object[]{"Top Menu", "Bottom Menu", "Side Menu", "No Menu" });
+JComboBox controlPanelPosition = new JComboBox(new Object[]{ "center","top", "bottom"});
+JComboBox controlPanelShow = new JComboBox(new Object[]{ "click","hover", "dblclick"});
+JTextField controlPanelPositionOffset = new JSmartTextField("10",3);
+JComboBox controlPanelPagePosition = new JComboBox(new Object[]{ "left","right"});
+JCheckBox controlPanelAnimate = new JCheckBox("Animate Control Panel", true);
+JCheckBox showSocial = new JCheckBox("Show Addthis Sharing Bar", true);
+JCheckBox showSocialTwitter = new JCheckBox("Show Twitter Button", true);
+JTextField showSocialTwitterVia = new JSmartTextField("",20);
+JCheckBox showSocialFacebook = new JCheckBox("Show FaceBook Button", true);
+JCheckBox showSocialFacebookLike = new JCheckBox("Show FaceBook Like Button", true);
+JCheckBox showSocialBuzz = new JCheckBox("Show Google Buzz Button", true);
+JCheckBox showSocialEmail = new JCheckBox("Show Email Button", true);
+JTextField contactEmail = new JSmartTextField("email@example.com",25);
+JCheckBox enableContact = new JCheckBox("Enable Contact Form", false);
+JCheckBox showSearch = new JCheckBox("Enable ImageFlow Image Search", true);
+JCheckBox showHelp = new JCheckBox("Show imageFlow Info Link Icon", true);
+JCheckBox showHome = new JCheckBox("Show Navigation Links Menu", false);
+JCheckBox enableAbout = new JCheckBox("Enable About Page Link", false);
+JCheckBox socialSeparate = new JCheckBox("AddThis Social Link separate from MenuBar", false);
+
+//new StateMonitor() {
+	//public void onChange() {
+		//enable(!menuControl.getSelectedItem().toString().equals("Side Menu"), controlPanelPositionOffset);
+	//}
+//}.add(menuControl).done();
+JSmartTextArea aboutPage = new JSmartTextArea("Paste Your HTML Code Here for your About Page");	
+		aboutPage.setEditable(true);
+		aboutPage.setLineWrap(true);
+		aboutPage.setRows(10);
+		aboutPage.setColumns(25);
+		aboutPage.setWrapStyleWord(true);
+		{
+			setTitle("photoData");
+
+		ComponentUtilities.whenSelectedEnable(showSocial, new JComponent[] {showSocialEmail,showSocialFacebook, showSocialBuzz,showSocialFacebookLike, showSocialTwitter});
+		ComponentUtilities.whenSelectedEnable(showSocialTwitter, new JComponent[] {showSocialTwitterVia});
+		
+			ComponentUtilities.whenSelectedEnable(enableContact, new JComponent[] {contactEmail});
+		ComponentUtilities.whenSelectedEnable(enableAbout, new JComponent[] {aboutPage});
+		setTitle("Menu Bar Settings");
+		getContentPanel().setLayout(new RiverLayout());
+		setExpanded(false);
+	
+ControlPanel footerPanel = new ControlPanel();
+footerPanel.add("br", new JLabel("MenuBar options are 'Top', 'Bottom', 'Right or Left Side'"));
+footerPanel.add("br", new JLabel("or 'No MenuBar' (Menu icons appear in Header)"));
+footerPanel.add("br", new JLabel("Menu Options"));
+footerPanel.add("", menuControl);
+footerPanel.add("p", new JLabel("Control Panel Page Position"));	
+footerPanel.add(controlPanelPosition );
+footerPanel.add("tab", new JLabel("Position Offset in px"));	
+footerPanel.add(controlPanelPositionOffset );
+footerPanel.add("br", new JLabel("Control Panel Sticks to:"));	
+footerPanel.add(controlPanelPagePosition );
+footerPanel.add("tab", new JLabel("Show Menus on:"));	
+footerPanel.add(controlPanelShow );
+footerPanel.add("br",controlPanelAnimate );
+
+footerPanel.add("br", showSearch);
+//footerPanel.add("br", showHome);
+footerPanel.add("br", showSocial);
+JLabel hsControlBar = new JLabel("", new ImageIcon(skinResDirectory + "/icons/addthis.gif"), JLabel.CENTER);
+footerPanel.add(hsControlBar);
+footerPanel.add(new JLinkLabel("http://www.addthis.com/", texts.getString("ui.addthis")));
+footerPanel.add("br", socialSeparate);
+//footerPanel.add("br", showSocialTwitter);
+//footerPanel.add( new JLabel("(Twitter '@twittername')"));
+//footerPanel.add("", showSocialTwitterVia);
+//footerPanel.add("br", showSocialFacebook);
+//footerPanel.add("", showSocialFacebookLike);
+//footerPanel.add("br", showSocialBuzz);
+//footerPanel.add("br", showSocialEmail);		
+
+footerPanel.add("br",enableContact);
+//JLabel hsControlBar = new JLabel("", new ImageIcon(skinResDirectory + "/icons/contact_icon.png"), JLabel.CENTER);
+//footerPanel.add(hsControlBar);
+footerPanel.add("br", new JLabel(" Enter Contact Form Email Address"));
+footerPanel.add("br",contactEmail);	
+footerPanel.add("br",enableAbout);
+//JLabel hsControlBar = new JLabel("", new ImageIcon(skinResDirectory + "/icons/information-1.png"), JLabel.CENTER);
+//footerPanel.add(hsControlBar);
+footerPanel.add("br", new JLabel("This is a link to the HTML editor:"));
+footerPanel.add("br", new JLinkLabel("file://" + skinDirectory.toString().replace('\\','/') + "/external_scripts/editor/index.html", "Link to Embedded HTML Editor"));	
+footerPanel.add("br", new JLabel("You can use it to make your 'About' page by pasting the code in this text area."));
+footerPanel.add("br", new JLabel("You can also use your own HTML Editor as well"));
+footerPanel.add("br hfill", new JScrollPane(aboutPage, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED));	
+add("br,vfill", footerPanel);
+}		
+};
+
+
+
+
+
+
+
+JCheckBox guiExists = new JCheckBox("", true);
+
+	JCollapsiblePanel contentflow = new JCollapsiblePanel() {
+	
+//ContentFlow
+
+JCheckBox slideShow = new JCheckBox("Enable SlideShow", true);
+JCheckBox clearBox = new JCheckBox("Enable ClearBox LightBox", true);
+JCheckBox circularFlow = new JCheckBox("Should the ImageFlow wrap Around?", true);
+JCheckBox showScrollbar = new JCheckBox("Show Scrollbar", true);
+JCheckBox startOnLoad = new JCheckBox("Start a Slideshow on Load", false);
+JTextField startItem = new JSmartTextField("center", 6);
+JTextField scrollInFrom = new JSmartTextField("none", 6);
+JTextField imageSpace = new JSmartTextField("4", 2);
+JTextField reflectionHeight = new JSmartTextField("4", 2);
+JTextField reflectionGap = new JSmartTextField("0", 2);
+JTextField flowSpeedFactor = new JSmartTextField("1.0", 3);
+JTextField visibleItems = new JSmartTextField("4", 2);
+JColorSelector pageBackgroundColor  = new JColorSelector(new JSmartTextField(6));
+pageBackgroundColor.setColor("#000000");
+JTextField maxItemHeight = new JSmartTextField("200", 3);
+JComboBox flowDragFriction = new JComboBox(new Object[]{ "1", "0.5", "2", "3", "4","5", "6", "7"});
+JComboBox scrollWheelSpeed = new JComboBox(new Object[]{"1", "0.5", "2", "3", "4","5", "6", "7"});
+ JColorSelector reflectBackgroundColor  = new JColorSelector(new JSmartTextField(6));
+ JColorSelector captionFontColor  = new JColorSelector(new JSmartTextField(6));
+captionFontColor.setColor("#FFFFFF");
+ JColorSelector bodyFontColor  = new JColorSelector(new JSmartTextField(6));
+ bodyFontColor.setColor("#FFFFFF");
+ JComboBox addOns = new JComboBox(new Object[]{ "default", "circle", "stack", "gallery", "roundabout","vertical", "waterwheel", "wave"});
+JCheckBox slideshowAddOn = new JCheckBox("Enable Slideshow Controls", true);
+JCheckBox slideshowNextPrev = new JCheckBox("Enable Previous - Next Button", true);
+JCheckBox slideshowFirstLast = new JCheckBox("Enable Go To First - Last Button", true);
+
+
+JCheckBox reflectionColor = new JCheckBox("Transparent ", false);
+JCheckBox showCFCaption = new JCheckBox("Show Captions under Images", true); 
+JCheckBox endOpacity = new JCheckBox("Enable opacity of the last visible item on either side", false);
+JTextField imageOpacity = new JSmartTextField("5", 2);
+
+JCheckBox showImageDescription = new JCheckBox("Show Image Description Icon", true);
+JCheckBox showImagePrint = new JCheckBox("Show Print Image Icon", true);
+ JCheckBox showImageFavorites = new JCheckBox("Show Favorites Icon", true);
+ JCheckBox showCart = new JCheckBox("Enable Shopping Cart", false);
+ JComboBox simpleCartcheckoutTo = new JComboBox(new Object[]{ "PayPal", "GoogleCheckout" });
+ JComboBox simpleCartcurrency = new JComboBox(new Object[]{ "USD", "EUR", "GBP" });
+ JTextField simpleCartemail = new JSmartTextField("your_email@example.com", 30);
+ JTextField simpleCartmerchantId = new JSmartTextField("", 15);
+ JTextField simpleCarttaxRate  = new JSmartTextField("0.00", 3);
+  JTextField simpleCartshippingFlatRate  = new JSmartTextField("0.00", 5);
+      
+	{
+		
+		setTitle("ContentFlow Settings");
+		getContentPanel().setLayout(new RiverLayout());
+		setExpanded(true);
+	ComponentUtilities.whenSelectedDisable(reflectionColor, new JComponent[] {reflectBackgroundColor});	 
+	ComponentUtilities.whenSelectedEnable(endOpacity, new JComponent[] {imageOpacity});	
+	ComponentUtilities.whenSelectedEnable(slideshowAddOn, new JComponent[] {slideshowFirstLast,slideshowNextPrev});	
+
+add("br", showCFCaption);
+add("p",new JLabel("Image Icon Settings"));
+JLabel hsControlBar = new JLabel( new ImageIcon(skinResDirectory + "/icons/image_icons.png"), JLabel.CENTER);
+add("tab",hsControlBar);
+add("br",showImageFavorites);		
+JLabel hsControlBar = new JLabel( new ImageIcon(skinResDirectory + "/icons/favorite_icon.png"), JLabel.CENTER);
+add("",hsControlBar);
+add("br",showImageDescription);
+JLabel hsControlBar = new JLabel( new ImageIcon(skinResDirectory + "/icons/description_icon.png"), JLabel.CENTER);
+add("",hsControlBar);
+add("br",showImagePrint);
+JLabel hsControlBar = new JLabel( new ImageIcon(skinResDirectory + "/icons/print_icon.png"), JLabel.CENTER);
+add("",hsControlBar);
+add("br",showCart);
+JLabel hsControlBar = new JLabel( new ImageIcon(skinResDirectory + "/icons/cart_icon.png"), JLabel.CENTER);
+add("",hsControlBar);
+add("br",showExif);
+//JLabel hsControlBar = new JLabel( new ImageIcon(skinResDirectory + "/icons/exif_icon.png"), JLabel.CENTER);
+//add("",hsControlBar); 	
+add("br", new JLabel("Type of ImageFlow"));
+add("", addOns);		 
+//add("br", new JLabel("Gallery Background Color"));
+//add(pageBackgroundColor);
+//add("br", new JLabel("Heading Font Color"));
+//add(bodyFontColor);
+//add(bodyFontColor.getTextComponent()); 
+// add("br", new JLabel("ImageFlow Caption Font Color"));
+//add(captionFontColor);
+//add(captionFontColor.getTextComponent()); 
+
+add("br", new JLabel("Reflection Background Color"));
+add(reflectBackgroundColor);
+add(reflectBackgroundColor.getTextComponent());
+add(reflectionColor); 
+add("br", new JLabel("Image Reflection Height"));
+add(reflectionHeight);
+add( new JLabel("Image Reflection Gap"));
+add(reflectionGap);
+add("br", new JLabel("Set Maximum Image Height for Imageflow Images"));
+add(maxItemHeight);
+add("", new JLabel("Image Spacing"));
+add("",imageSpace);
+add("br",endOpacity);
+add(imageOpacity);
+add("br", new JLabel("Drag of the Imageflow"));
+  add(flowDragFriction);
+   add("br", new JLabel("Speed of Mouse ScrollWheel"));
+add(scrollWheelSpeed);                           
+add("br", showScrollbar); 
+JLabel hsControlBar = new JLabel("", new ImageIcon(skinResDirectory + "/images/slider.png"), JLabel.CENTER);
+add(hsControlBar); 
+add("br", slideshowAddOn);
+JLabel hsControlBar = new JLabel("", new ImageIcon(skinResDirectory + "/images/buttons.png"), JLabel.CENTER);
+add(hsControlBar);
+ add("br", slideshowNextPrev);
+ add("", slideshowFirstLast);
+ //add("", new JLabel(""));
+ //add("", startOnLoad);     
+add("br", new JLabel(""));
+add("", circularFlow);       
+add("", new JLabel(""));		
+add("br", new JLabel(""));
+add("br",new JLabel("Speed of the Slideshow Scrolling"));
+  add("",  flowSpeedFactor);
+   add("",new JLabel("# of Visible Images in Flow"));
+  add("",  visibleItems);
+add("br",new JLabel("Starting Image: 'center' or Image # (0 = 1st image)"));
+  add("tab",  startItem);
+ add("br",new JLabel("ScrollIn From Image#: 'none' or Image # (0 = 1st image)"));
+  add("tab",  scrollInFrom);
+
+
+
+
+
+
+
+
+
+//add("tab",PaginatorSelectedTextColor);
+//add("tab", PaginatorSelectedTextColor.getTextComponent());  
+
+		
+	}		
+};
+
+
+JCollapsiblePanel exif = new JCollapsiblePanel() {
+	 
+JCheckBox showExifMake = new JCheckBox("Make", true);
+JCheckBox showExifModel = new JCheckBox("Model", true);
+JCheckBox showExifFlash = new JCheckBox("Flash", true);
+JCheckBox showExifFocalLength = new JCheckBox("Focal Length", true);
+JCheckBox showExifAperture = new JCheckBox("Aperture", true);
+JCheckBox showExifShutterSpeed = new JCheckBox("Exposure", true);
+JCheckBox showExifISO = new JCheckBox("ISO Equivalent", true);
+JCheckBox showExifMeterMode = new JCheckBox("Meter Mode", true);
+JCheckBox showExifSensorType = new JCheckBox("Sensor Type", false);
+JCheckBox showExifDate = new JCheckBox("Date", true);
+JCheckBox useFocalMultiplier = new JCheckBox("Automatically calculate 35mm equivalent", true);
+JCheckBox noExifDate = new JCheckBox("Show file date when no EXIF info is found", false);
+
+
+	{
+		setTitle("EXIF Settings");
+		ComponentUtilities.whenSelectedEnable(showExif, new JComponent[] {showExifMake, showExifModel,showExifFlash,showExifFocalLength,useFocalMultiplier,showExifAperture,showExifShutterSpeed,showExifMeterMode,showExifSensorType,showExifDate});
+		getContentPanel().setLayout(new RiverLayout());
+		setExpanded(false);
+		 
+ 
+ add("br", showExifMake);
+ add("br", showExifModel);
+ add("br", showExifFlash);
+ add("br", showExifFocalLength);
+ add(useFocalMultiplier);
+ add("br", showExifAperture);
+ add("br", showExifShutterSpeed);
+ //add("br", showExifMeterMode);
+ //add("br", showExifSensorType);
+ add("br", showExifDate);
+
+		
+	}		
+};
+
+
+
+// Custom Colors tab
+
+
+
+JCollapsiblePanel stylePanel = new JCollapsiblePanel() {
+JColorSelector BodyColor = new JColorSelector(new JSmartTextField(6));
+BodyColor.setColor("#000000");
+JColorSelector bodyFontColor = new JColorSelector(new JSmartTextField(6));
+bodyFontColor.setColor("#FFFFFF");
+JColorSelector LinkColor = new JColorSelector(new JSmartTextField(6));
+JColorSelector LinkHoverColor = new JColorSelector(new JSmartTextField(6)); 
+JColorSelector LinkActiveColor = new JColorSelector(new JSmartTextField(6)); 
+JColorSelector captionFontColor = new JColorSelector(new JSmartTextField(6));
+captionFontColor.setColor("#FFFFFF");
+JColorSelector titleColor = new JColorSelector(new JSmartTextField("FFFFFF",6));
+titleColor.setColor("#FFFFFF");
+JCheckBox showJqueryuiSwitcher = new JCheckBox("Show Theme Switcher on Gallery Page", false);
+JComboBox jqueryUI = new JComboBox(new Object[]{ "Aristo", "Artic", "Rocket", "Midnight", "Sterling", "Cobalt", "UI lightness","UI darkness","Smoothness","Start","Redmond","Sunny","Overcast","Le Frog","Flick","Pepper Grinder","Eggplant","Dark Hive","Cupertino","South Street","Blitzer","Humanity","Hot sneaks","Excite Bike","Vader","Dot Luv","Mint Choc","Black Tie","Trontastic","Swanky Purse" });
+JComboBox pageFont = new JComboBox(fontList);
+
+ButtonGroup fontChoice = new ButtonGroup();
+JRadioButton usePageFont = new JRadioButton("Use Standard Fonts");
+JRadioButton useGoogleFont = new JRadioButton("Use Google Font Replacement");
+fontChoice.add(usePageFont);
+fontChoice.add(useGoogleFont);
+useGoogleFont.setSelected(true);
+
+JSmartTextArea googleCode = new JSmartTextArea(texts.getString("ui.googlefont"));	
+		googleCode.setEditable(true);
+		googleCode.setLineWrap(true);
+		googleCode.setRows(6);
+		googleCode.setColumns(40);
+		googleCode.setWrapStyleWord(true);
+
+	{
+		setTitle("Font, Theme and Color Settings");
+		getContentPanel().setLayout(new RiverLayout());
+		setExpanded(false);
+		ComponentUtilities.whenSelectedDisable(usePageFont, new JComponent[] {googleCode});
+		ComponentUtilities.whenSelectedDisable(useGoogleFont, new JComponent[] {pageFont});
+		ComponentUtilities.whenSelectedDisable(jqueryUICustom, new JComponent[] {bodyFontColor,captionFontColor,titleColor,BodyColor,jqueryUI});
+		ComponentUtilities.whenSelectedDisable(jqueryUIDefault, new JComponent[] {bodyFontColor,captionFontColor,titleColor,BodyColor,jqueryUI});
+	ComponentUtilities.whenSelectedDisable(jqueryUINone, new JComponent[] {fileOpenButton,imagePath, imageName, jqueryUIPath,jqueryUIName,showJqueryuiSwitcher});
+	ComponentUtilities.whenSelectedEnable(enableBackgroundImage, new JComponent[] {fileOpenButton,imagePath, imageName});
+	ComponentUtilities.whenSelectedEnable(jqueryUICustom, new JComponent[] {jqueryUIPath,jqueryUIName,jqueryUI});
+	ComponentUtilities.whenSelectedEnable(jqueryUIDefault, new JComponent[] {jqueryUI,showJqueryuiSwitcher});
+ControlPanel bodyPanel = new ControlPanel("Color, Background and Theme Settings");
+
+bodyPanel.add(new JLabel("Font Selection"));	
+
+bodyPanel.add("br",useGoogleFont);
+bodyPanel.add("br", new JLinkLabel("file://" + skinDirectory.toString().replace('\\','/') + "/external_scripts/google_font/index.html", "Link to Google Font Code Selector"));	
+bodyPanel.add("br",new JLabel("Copy and Paste Google Font Code Here:"));
+bodyPanel.add("br",googleCode);
+bodyPanel.add("br",usePageFont);
+bodyPanel.add("br",new JLabel("Choose Local Font"));	
+bodyPanel.add(pageFont);
+
+
+bodyPanel.add("br", jqueryUINone);
+
+bodyPanel.add("br", jqueryUIDefault);	
+bodyPanel.add(new JLabel("Choose Default Theme:"));	
+bodyPanel.add(jqueryUI);
+bodyPanel.add("br", showJqueryuiSwitcher);	 	
+bodyPanel.add("br", jqueryUICustom);
+bodyPanel.add(new JLinkLabel("http://jqueryui.com/themeroller/", texts.getString("ui.jqueryUILink")));
+bodyPanel.add("br", fileOpenButton2);
+fileOpenButton2.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent evt) {
+JFileChooser chooser = new JFileChooser(new File(""));
+int ret = chooser.showOpenDialog(window);
+if (ret == JFileChooser.APPROVE_OPTION) {
+	jqueryUIName.setText(chooser.getSelectedFile().getName());
+	jqueryUIPath.setText(chooser.getSelectedFile().getAbsolutePath());
+}
+}
+});
+bodyPanel.add("br",jqueryUIName);
+bodyPanel.add("br",jqueryUIPath);
+
+
+bodyPanel.add("br", bgNoImage);			 	
+bodyPanel.add("br", enableBackgroundImage);
+bodyPanel.add("br", enableBackgroundImageRandom);
+bodyPanel.add("br", fileOpenButton);
+fileOpenButton.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent evt) {
+JFileChooser chooser = new JFileChooser(new File(""));
+int ret = chooser.showOpenDialog(window);
+if (ret == JFileChooser.APPROVE_OPTION) {
+	imageName.setText(chooser.getSelectedFile().getName());
+	imagePath.setText(chooser.getSelectedFile().getAbsolutePath());
+}
+}
+});
+bodyPanel.add("br",imageName);
+bodyPanel.add("br",imagePath);
+
+
+
+bodyPanel.add("br",new JLabelFor("Page Background Color",BodyColor)); 
+bodyPanel.add("",BodyColor);
+bodyPanel.add(BodyColor.getTextComponent());
+bodyPanel.add("br",new JLabelFor("Title Color", titleColor));
+bodyPanel.add(titleColor);
+bodyPanel.add(titleColor.getTextComponent());
+bodyPanel.add("br",new JLabelFor("Caption Color", captionFontColor));
+bodyPanel.add(captionFontColor);
+bodyPanel.add(captionFontColor.getTextComponent()); 
+bodyPanel.add("br",new JLabel("Label Text Color"));
+bodyPanel.add("",bodyFontColor);
+bodyPanel.add("tab", bodyFontColor.getTextComponent()); 
+add("vfill", bodyPanel);
+
+
+
+		
+	}		
+};
+
+
+// Shopping Cart tab
+
+
+
+JCollapsiblePanel cartPanel = new JCollapsiblePanel() {
+ JCheckBox showYoxCart = new JCheckBox("Enable Shopping Cart", false);
+ JComboBox simpleCartcheckoutTo = new JComboBox(new Object[]{ "PayPal", "GoogleCheckout" });
+ JComboBox simpleCartcurrency = new JComboBox(new Object[]{ "USD", "EUR", "GBP" });
+ JTextField simpleCartemail = new JSmartTextField("your_email@example.com", 30);
+ JTextField simpleCartmerchantId = new JSmartTextField("", 15);
+ JTextField simpleCarttaxRate  = new JSmartTextField("0.00", 3);
+  JTextField simpleCartshippingFlatRate  = new JSmartTextField("0.00", 5);
+	{
+		setTitle("Shopping Cart Settings");
+		//ComponentUtilities.whenSelectedEnable(showCart, new JComponent[] {simpleCartcheckoutTo,simpleCartcurrency,simpleCartemail,simpleCartmerchantId,simpleCarttaxRate,simpleCartshippingFlatRate});
+		getContentPanel().setLayout(new RiverLayout());
+		setExpanded(false);
+	
+ControlPanel shoppingPanel = new ControlPanel("Cart");
+//shoppingPanel.add("tab",showCart);
+shoppingPanel.add("br",new JLabelFor("Select Merchant", simpleCartcheckoutTo));
+shoppingPanel.add(simpleCartcheckoutTo); 
+shoppingPanel.add("br",new JLabelFor("Select Currency", simpleCartcurrency));
+shoppingPanel.add(simpleCartcurrency); 
+shoppingPanel.add("br",new JLabelFor("Paypal Email Address", simpleCartemail));
+shoppingPanel.add(simpleCartemail);
+shoppingPanel.add("br",new JLabelFor("Google Merchant ID", simpleCartmerchantId));
+shoppingPanel.add(simpleCartmerchantId);
+shoppingPanel.add("br",new JLabelFor("Tax Rate", simpleCarttaxRate));
+shoppingPanel.add(simpleCarttaxRate);
+shoppingPanel.add("tab",new JLabelFor("Shipping Rate", simpleCartshippingFlatRate));
+shoppingPanel.add(simpleCartshippingFlatRate);
+shoppingPanel.add("br br",new JLabel("Each Item's Name, Price and Size are set individually"));
+shoppingPanel.add("br",new JLabel("for each image in a Shopping Cart Tab in Image Edit mode "));
+add("vfill", shoppingPanel);
+
+
+
+		
+	}		
+};
+
+
+JCollapsiblePanel filters = new JCollapsiblePanel() {
+	 JCheckBox fixedShape = new JCheckBox("Crop Thumbs to fixed shape", false);
+JCheckBox roundBorders = new JCheckBox("Show Rounded Borders on Thumbnails", true);
+JCheckBox thumbBoxShadow = new JCheckBox("Show Drop Shadow on Thumbnails", true);
+JTextField radiusBorder = new JSmartTextField("3", 2);
+JCheckBox grayscale = new JCheckBox("Make grayscale");
+JCheckBox zoomThumbs = new JCheckBox("Zoom", false);
+JSlider zoomPercent = new JSlider(JSlider.HORIZONTAL, 5, 75, 30);
+JTextField watermark = new JSmartTextField("", 18);
+JComboBox slideWatermarkFontFace = new JComboBox(fontList);
+JComboBox watermarkAlign = new JComboBox(new Object[]{ "left", "center", "right"});
+JComboBox watermarkValign = new JComboBox(new Object[]{ "top", "center", "bottom"});
+JTextField watermarkSize = new JSmartTextField("20", 3);
+JComboBox slideWatermarkFontStyle = new JComboBox(new Object[]{ "plain", "bold", "italic", "bolditalic" });
+JSlider watermarkStrength = new JSlider(JSlider.HORIZONTAL, 0, 100, 40);
+JButton openSimpleXBF=new JButton("Image Filter Options");
+JCheckBox showWatermark = new JCheckBox("Show WaterMark", false);
+
+	{
+		setTitle("Image Filter Settings and Watermark");
+		getContentPanel().setLayout(new RiverLayout());
+		setExpanded(false);
+	
+ 
+ ControlPanel indexPanel = new ControlPanel("Thumbnails");
+ indexPanel.add("br vfill",openSimpleXBF);
+
+openSimpleXBF.addActionListener(new java.awt.event.ActionListener() {
+
+public void actionPerformed(java.awt.event.ActionEvent evt) {
+	File f=new File(skinDirectory + "/res/icons/","Drop.jpg");
+	if (f.exists()){
+		SimpleXBF sxbf=new SimpleXBF(f.getAbsolutePath());
+		sxbf.setVisible(true);
+		}
+	else{
+		SimpleXBF sxbf=new SimpleXBF();
+		sxbf.setVisible(true);
+	}
+
+	}
+});
+indexPanel.add("br",new JLabel("Rounded Corners and Drop Shadows May not Work in All Browsers"));
+indexPanel.add("br",thumbBoxShadow);
+indexPanel.add("br",roundBorders);
+indexPanel.add(new JLabel("Border Radius in Pixels"));
+indexPanel.add(radiusBorder);
+indexPanel.add("br",fixedShape);
+indexPanel.add("tab", grayscale);
+indexPanel.add("br", zoomThumbs);
+zoomPercent.setMajorTickSpacing(10);
+zoomPercent.setMinorTickSpacing(5);
+zoomPercent.setPaintTicks(true);
+zoomPercent.setPaintLabels(true);
+indexPanel.add(zoomPercent);
+indexPanel.add(new JLabel("%"));
+
+
+
+
+add(" vfill ", indexPanel);
+
+ControlPanel watermarkPanel = new ControlPanel("Watermark");
+ComponentUtilities.whenSelectedEnable(showWatermark, new JComponent[] {watermarkStrength,slideWatermarkFontStyle,watermarkSize,watermarkValign,watermarkAlign,slideWatermarkFontFace,watermark});
+watermarkPanel.add( showWatermark);
+watermarkPanel.add("br",new JLabel("Text"));
+watermarkPanel.add("", watermark);
+watermarkPanel.add("br", new JLabel("Font"));
+watermarkPanel.add("", slideWatermarkFontFace);
+watermarkPanel.add("br", new JLabel("Location"));
+watermarkPanel.add(watermarkAlign);
+watermarkPanel.add(watermarkValign);
+watermarkPanel.add("br",new JLabel("Size"));
+watermarkPanel.add(watermarkSize);
+watermarkPanel.add(new JLabel("Style"));
+watermarkPanel.add(slideWatermarkFontStyle);
+watermarkPanel.add("br", new JLabel("Strength"));
+watermarkStrength.setMajorTickSpacing(20);
+watermarkStrength.setMinorTickSpacing(10);
+watermarkStrength.setPaintTicks(true);
+watermarkStrength.setPaintLabels(true);
+watermarkPanel.add(watermarkStrength);
+watermarkPanel.add(new JLabel("% "));
+add("br vfill", watermarkPanel);
+
+
+		
+	}		
+};
+
+
+
+//New LightBox Settings
+
+ControlPanel lightbox=new ControlPanel();
+
+lightbox.add("vfill", new JLabel("Select LightBox Option:"));
+//lightbox.add("br",lightBoxSelectionY);
+lightbox.add("br",lightBoxSelectionP);
+lightbox.add(lightBoxSelectionE);
+lightbox.add(lightBoxSelectionC);
+lightbox.add(lightBoxSelectionCL);
+lightbox.add(lightBoxSelectionEZ);
+lightBoxSelectionP.setSelected(true);
+lightbox.add("br", new JLabel("The ImageFlow Skin offers the choice of Five different Lightbox options:"));
+lightbox.add("br", new JLabel("LightBox Evolution, PrettyPhoto, ColorBox, HighSlide, and ClearBox"));
+lightbox.add("br br", new JLabel("Selecting a Lightbox opens the Preference Pane for that Lightbox."));
+lightbox.add("p", new JLabel(""));
+
+
+
+ControlPanel evolution=new ControlPanel();
+evolution.add(new JLabel("Evolution displays image galleries and Flash, Quicktime, Windows Media, HTML, etc."));
+evolution.add("br", new JLabel("Use of Evolution under LightBoxes License is free."));
+evolution.add("br", new JLabel(""));
+JLinkLabel linkEvo = new JLinkLabel("Evolution Information and license");
+linkEvo.setURL("http://www.codecanyon.com");
+evolution.add(linkEvo);
+ControlPanel evo = new ControlPanel("Evolution Appearance");
+
+evo.add(new JLabel("Evolution 'Skin'"));
+evo.add(evolutionSkin);
+evo.add("br", new JLabel("LightBox Popup Direction"));
+evo.add(emergefrom);
+evo.add("br",new JLabel(""));
+evo.add(showEvoLabel);
+evo.add( "br", new JLabel(""));
+evo.add(showEvoComment);
+evo.add("br", evolutionModal);
+evo.add("br", new JLabel("Overlay Opacity (in 1/10 sec)"));
+evo.add(evolutionOverlay);
+evo.add(evolutionBackground);
+evo.add( evolutionBackground.getTextComponent()); 
+evolution.add("br, vfill", evo);
+
+
+
+ControlPanel easybox=new ControlPanel();
+easybox.add(new JLabel("Evolution displays image galleries and Flash, Quicktime, Windows Media, HTML, etc."));
+easybox.add("br", new JLabel("Use of Evolution under LightBoxes License is free."));
+easybox.add("br", new JLabel(""));
+JLinkLabel linkEZ = new JLinkLabel("EasyBox Information and license");
+linkEZ.setURL("http://www.codecanyon.com");
+easybox.add(linkEvo);
+ControlPanel ez = new ControlPanel("EasyBox Settings");
+
+easybox.add("br, vfill", ez);
+
+																								
+									
+
+
+ControlPanel clearbox=new ControlPanel();
+clearbox.add(new JLabel("ClearBox displays image galleries and other content"));
+clearbox.add("br",new JLabel("including Flash, Quicktime, Windows Media, HTML, etc."));
+clearbox.add("br", new JLabel("Use of ClearBox is free."));
+JLinkLabel linkCB = new JLinkLabel("ClearBox Information");
+linkCB.setURL("http://www.clearbox.hu/index_en.html");
+clearbox.add( linkCB);
+JCollapsiblePanel light2 = new JCollapsiblePanel("ClearBox Appearance",new RiverLayout());
+light2.setExpanded(true);
+light2.add(new JLabel("ClearBox 'Skin'"));
+light2.add(CB_Config);
+light2.add("br", new JLabel("LightBox Background Color"));
+light2.add(CB_HideColor);
+light2.add( CB_HideColor.getTextComponent());
+light2.add("br",showCBGal);
+light2.add("br",new JLabel("Gallery Name"));
+light2.add("tab", CB_ShowGalName);
+light2.add("br", new JLabel("Show Gallery Name in LightBox"));
+light2.add(showCB_ShowGalName);
+light2.add("br", new JLabel("Comment Box Height in Pixels"));
+light2.add(CB_TxtHMax);
+light2.add( "br",new JLabel(""));
+light2.add(showLabel);
+light2.add( new JLabel(""));
+light2.add(showComment);
+light2.add("br", new JLabel("Border Around Popup Image"));
+light2.add(CB_ImgBorder);
+light2.add( new JLabel("LightBox Image Border Color"));
+light2.add(CB_ImgBorderColor);
+light2.add( CB_ImgBorderColor.getTextComponent());
+light2.add("br", new JLabel("Title Font"));
+light2.add(CB_FontT);
+light2.add( new JLabel("Size"));
+light2.add(CB_FontSizeT);
+light2.add( new JLabel("Color"));
+light2.add(CB_FontColorT);
+light2.add( CB_FontColorT.getTextComponent());
+light2.add("br", new JLabel("Comment Font"));
+light2.add(CB_FontC);
+light2.add( new JLabel("Size"));
+light2.add(CB_FontSizeC);
+light2.add( new JLabel("Color"));
+light2.add(CB_FontColorC);
+light2.add( CB_FontColorC.getTextComponent());
+light2.add("br", new JLabel("LightBox Rounded Corner Radius"));
+CB_RoundPix.setMajorTickSpacing(2);
+CB_RoundPix.setMinorTickSpacing(1);
+CB_RoundPix.setPaintTicks(true);
+CB_RoundPix.setPaintLabels(true);
+light2.add(CB_RoundPix);
+light2.add(new JLabel("Pixels"));
+light2.add("br",new JLabel("Height of Text Area Under Image"));
+light2.add(CB_TextH);
+
+clearbox.add("br, vfill", light2);
+
+	
+JCollapsiblePanel light3 = new JCollapsiblePanel("Thumbnail Settings",new RiverLayout());
+light3.add("", new JLabel("Show Thumbnails in Popup"));
+light3.add("", CB_ShowThumbnails);
+light3.add("br", new JLabel("Thumbnail Dimming Color"));
+light3.add(CB_ThumbsBGColor);
+light3.add( CB_ThumbsBGColor.getTextComponent());
+light3.add("br", new JLabel("Thumbnail Opacity in Popup (%)"));
+light3.add( CB_ThumbsBGOpacity);
+clearbox.add("br vfill", light3);
+	
+JCollapsiblePanel light5 = new JCollapsiblePanel("Navigation Settings",new RiverLayout());
+light5.add("br", new JLabel("'Simple Design' in Popup, no frame"));
+light5.add("", CB_SimpleDesign);
+light5.add("tab", new JLabel("Online Display' on Hover"));
+light5.add("", CB_OSD);
+light5.add("br", new JLabel("Prev-Next in Popup"));
+light5.add("", CB_TextNav);
+light5.add("", new JLabel("Prev-Next as Button(on) or Text(off)"));
+light5.add("", CB_NavTextImgPrvNxt);
+light5.add("br", new JLabel("Fullsize/Open in New Window Link"));
+light5.add("", CB_ShowDL);
+light5.add("", new JLabel("Link as Button(on) or Text(off)"));
+light5.add("", CB_NavTextImgDL);
+light5.add("br", new JLabel("URL of the Content if no title or caption"));
+light5.add("", CB_ShowURL);
+light5.add("br", new JLabel("Image Rotation Buttons in Popup"));
+light5.add("", CB_ImgRotation);
+light5.add(new JLabel("Image Rotation as Button (on) or Text (off)"));
+light5.add("", CB_NavTextImgRot);
+light5.add("br", new JLabel("Show Image Numbers in Popup"));
+light5.add("", CB_ImgNum);
+light5.add("br", new JLabel("Background Opacity for Popup (%)"));
+light5.add("", CB_HideOpacity);
+light5.add("", new JLabel("Clicking Background closes Popup"));
+light5.add("", CB_CloseOnH);
+light5.add("", new JLabel(""));
+light5.add("br", new JLabel("Minimum Image Width (px)"));
+light5.add("", CB_ImgMinWidth);
+light5.add("", new JLabel("Minimum Image Height (px)"));
+light5.add("", CB_ImgMinHeight);
+clearbox.add("br, vfill", light5);
+
+JCollapsiblePanel light4 = new JCollapsiblePanel("Animation Settings",new RiverLayout());
+light4.add("", SlideshowStart);
+light4.add("tab", new JLabel("Preload Images"));
+light4.add(CB_Preload);
+light4.add("br", new JLabel("Color of the Slideshow Progress Bar"));
+light4.add(CB_SlideShowBarColor);
+light4.add( CB_SlideShowBarColor.getTextComponent());
+light4.add("br", new JLabel("Opacity of the Slideshow Progress Bar (%)"));
+light4.add("", CB_SlideShowBarOpacity);
+light4.add("br", new JLabel("Slideshow Speed in Seconds"));
+light4.add("", CB_SlShowTime);
+light4.add("br", new JLabel("LightBox Window Animation Type"));
+light4.add(CB_Animation);
+light4.add("br", new JLabel("Window Animation Speed (ms)"));
+light4.add("", CB_AnimSpeed);
+clearbox.add("br, vfill", light4);	
+
+
+
+
+
+
+  
+
+
+										
+
+ControlPanel pretty=new ControlPanel();  
+pretty.add(new JLabel("PrettyPhoto supports Images, Videos, Flash, YouTube and iFrames."));
+pretty.add("br", new JLabel("It is licensed under Creative Commons Attribution 2.5."));
+pretty.add("br", new JLabel("and can be used in any private or commercial site for free."));
+JLinkLabel linkPP = new JLinkLabel("PrettyPhoto Information");
+linkPP.setURL("http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/");
+pretty.add( linkPP);
+ControlPanel lightPanel = new ControlPanel();
+ComponentUtilities.whenSelectedEnable(prettyphotoGallery, new JComponent[] {prettyphotoGalleryName,galleryShow });
+ComponentUtilities.whenSelectedEnable(overlayShow, new JComponent[] {HideOpacity });
+ComponentUtilities.whenSelectedEnable(autoplay_slideshow, new JComponent[] {slideshowInterval });
+ControlPanel light = new ControlPanel("PrettyPhoto Lightbox Settings");
+
+light.add(new JLabel("Background Theme"));
+light.add(Themes);
+light.add("br", new JLabel("PopUp Animation Speed"));
+light.add("", animationSpeed);
+light.add("br", autoplay_slideshow);
+light.add("", overlay_gallery);
+light.add("br", new JLabel("Slideshow Next-Previous Change Speed (ms)"));
+light.add( slideshowInterval);
+light.add("br",prettyphotoGallery);
+light.add("br", new JLabel("Gallery Name"));
+light.add("", prettyphotoGalleryName);
+light.add("br", galleryShow);
+
+light.add("br", showTitle); 
+
+light.add("", overlayShow);
+light.add("br", new JLabel("Opacity for Background Overlay (%)"));
+light.add("", HideOpacity);
+light.add("br",modal);
+light.add("", new JLabel("Padding for Popup Image"));
+light.add("", boxPadding); 
+light.add("br", allowresize);
+light.add("br", new JLabel("Default Image Width"));
+light.add(default_width);
+light.add(new JLabel("Default Image Height"));
+light.add(default_height);
+light.add("br",new JLabel("Default Video Height and Width"));
+light.add(videoSizeP);
+
+
+
+light.add("br", galleryAutoplay);
+light.add("br hfill", lightPanel);
+		
+pretty.add("br hfill",light );
+
+
+ControlPanel colorbox=new ControlPanel();
+colorbox.add(new JLabel("ColorBox supports images and Flash, QuickTime, Flash video, and Windows Media Player."));
+colorbox.add("br", new JLabel("License grants personal, non-commercial users the right to use without paying a fee."));
+JLinkLabel linkSB = new JLinkLabel("ColorBox commercial License Information");
+linkSB.setURL("http://shadowbox-js.com/index.html#license");
+colorbox.add("br",linkSB);									
+ControlPanel color = new ControlPanel("ColorBox LightBox Settings");
+color.add( new JLabel("Background Opacity 0."));
+color.add(color_opacity);
+
+color.add("br", new JLabel("PopUp Theme"));
+color.add(color_theme);
+color.add("br",colorSlideshow);
+color.add("br",colorAutoSlideshow);
+color.add("br", new JLabel("SlideShow Speed in ms"));
+color.add("",colorSlideshowSpeed);
+colorbox.add("br hfill", color);													
+													
+
+
+
+								
+
+
+ControlPanel yoxviewbox=new ControlPanel();
+ComponentUtilities.whenSelectedEnable(autoPlay, new JComponent[] {loopPlay,playDelay});
+ComponentUtilities.whenSelectedEnable(showYoxButtons, new JComponent[] {showYoxDownload});
+
+
+yoxviewbox.add(new JLabel("Yoxview supports images, Video (from sites like Youtube, SWF and FLV files),"));
+yoxviewbox.add("br",new JLabel("movies (QuickTime, Windows Media and Realplayer) and iframes"));
+yoxviewbox.add("br", new JLabel("Yoxview is Open Source, Licensed under MIT License."));
+JLinkLabel linkYB = new JLinkLabel("Yoxview Information");
+linkYB.setURL("http://http://www.yoxigen.com/yoxview/Default.aspx");
+yoxviewbox.add("br",linkYB);									
+ControlPanel yoxview = new ControlPanel("YoxView LightBox Settings");
+yoxview.add(autoPlay);
+yoxview.add( new JLabel("Play Delay"));
+yoxview.add(playDelay);
+yoxview.add(loopPlay);
+yoxview.add("br",showYoxButtons);
+yoxview.add("br",showYoxDownload);
+//yoxview.add(showYoxPrint);
+yoxview.add( "br",new JLabel("Overlay Background Color"));
+yoxview.add(yoxBackgroundColor);
+yoxview.add(yoxBackgroundColor.getTextComponent());
+yoxview.add(new JLabel("Background Opacity")); 
+yoxview.add(backgroundOpacity);
+yoxview.add("br",autoHideMenu);
+yoxview.add(autoHideInfo);
+yoxview.add("br",renderMenu);
+yoxview.add(showBarsOnOpen);
+yoxview.add("br",renderButtons);
+yoxview.add(showButtonsOnOpen);
+yoxview.add( new JLabel("Buttons Fade Time")); 
+yoxview.add(buttonsFadeTime);
+
+yoxview.add( "br",new JLabel("Initial Controls Display Time")); 
+yoxview.add(controlsInitialDisplayTime);
+yoxview.add( "br",new JLabel("Info Background Color"));
+yoxview.add(infoBackColor);
+yoxview.add(infoBackColor.getTextComponent());
+yoxview.add(new JLabel("Info Background Opacity")); 
+yoxview.add(infoBackOpacity);
+yoxview.add("br",new JLabel("Info Padding in px")); 
+yoxview.add(titlePadding);
+yoxview.add(new JLabel("Info Display Duration before Fade")); 
+yoxview.add(titleDisplayDuration);
+yoxview.add( "br",new JLabel("PopUp Margin in px"));
+yoxview.add(popupMargin);
+yoxview.add( "br",new JLabel("PopUp Resize Time"));
+yoxview.add(popupResizeTime);
+
+
+
+yoxview.add( "br",new JLabel("Attribute for PopUp Title"));
+yoxview.add(titleAttribute);
+yoxview.add(new JLabel("Title Display Duration"));
+yoxview.add(titleDisplayDuration);
+yoxview.add("br",cacheImagesInBackground);
+yoxviewbox.add("br vfill", yoxview);					
+
+
+
+ImageIcon clearboxImageIcon=new ImageIcon(skinDirectory.getAbsolutePath()+File.separator+"icons"+File.separator+"clearbox.gif");
+ImageIcon colorboxImageIcon=new ImageIcon(skinDirectory.getAbsolutePath()+File.separator+"icons"+File.separator+"colorbox.gif");
+ImageIcon prettyphotoImageIcon=new ImageIcon(skinDirectory.getAbsolutePath()+File.separator+"icons"+File.separator+"light_rounded.jpg");
+ImageIcon exifImageIcon=new ImageIcon(skinDirectory.getAbsolutePath()+File.separator+"icons"+File.separator+"camera.png");
+ImageIcon yoxviewImageIcon=new ImageIcon(skinDirectory.getAbsolutePath()+File.separator+"icons"+File.separator+"yoxview.gif");
+// Create an action listener
+Action buttonAction=new AbstractAction(){
+		public void actionPerformed(ActionEvent e) {
+			//do something;
+			 subTabs.remove(subTabs.getTabCount()-1);
+			 if(e.getActionCommand().equals("Evolution")){
+				subTabs.addTab("Evolution",clearboxImageIcon, evolution);}
+			 if(e.getActionCommand().equals("PrettyPhoto")){
+				subTabs.addTab("PrettyPhoto",prettyphotoImageIcon, pretty);}	
+			 if(e.getActionCommand().equals("ColorBox")){
+				subTabs.addTab("ColorBox",colorboxImageIcon, colorbox);}	
+				 if(e.getActionCommand().equals("ClearBox")){
+				subTabs.addTab("ClearBox", clearbox);}		
+				if(e.getActionCommand().equals("YoxView")){
+				subTabs.addTab("YoxView",yoxviewImageIcon, yoxviewbox);}
+				if(e.getActionCommand().equals("EasyBox")){
+				subTabs.addTab("EasyBox",yoxviewImageIcon, easybox);}	
+		}
+	};
+
+// Attach action listener to the buttons
+lightBoxSelectionE.addActionListener(buttonAction);
+lightBoxSelectionE.setActionCommand("Evolution");
+lightBoxSelectionP.addActionListener(buttonAction);
+lightBoxSelectionP.setActionCommand("PrettyPhoto");
+lightBoxSelectionC.addActionListener(buttonAction);
+lightBoxSelectionC.setActionCommand("ColorBox");
+lightBoxSelectionCL.addActionListener(buttonAction);
+lightBoxSelectionCL.setActionCommand("ClearBox");
+//lightBoxSelectionY.addActionListener(buttonAction);
+//lightBoxSelectionY.setActionCommand("YoxView");
+lightBoxSelectionEZ.addActionListener(buttonAction);
+lightBoxSelectionEZ.setActionCommand("EasyBox");
+
+JTabbedPane subTabs=new JTabbedPane();
+//subTabs.addTab("YoxView", yoxviewbox);
+//subTabs.addTab("Evolution", evolution);
+subTabs.addTab("PrettyPhoto", prettyphotoImageIcon, pretty);
+//subTabs.addTab("ColorBox", colorbox);
+//subTabs.addTab("ClearBox", clearboxImageIcon, clearbox);
+//subTabs.addTab("EasyBox", easybox);
+lightbox.add("br vfill hfill ", subTabs);
+
+
+
+
+	
+
+
+
+
+
+{
+	ControlPanel cont = new ControlPanel();
+	cont.add("br hfill", info);
+	cont.add("br hfill", stylePanel);
+	cont.add("br hfill", contentflow);
+	cont.add("br hfill", footerbar);
+	cont.add("br hfill", filters);
+	cont.add("br hfill", exif);
+	cont.add("br hfill", cartPanel);
+	cont.add("br hfill", lightbox);
+	
+	
+	
+	
+	cont.add("br center", new JLabel("Jalbum "+internalVersion));
+	cont.add(new JLinkLabel("http://jalbum.net/software/download/current", texts.getString("ui.upgrade"), texts.getString("ui.downloadJalbum")));
+	cont.add(new JLabel("|  "));
+	cont.add(new JLinkLabel("http://www.jalbumskins.com/", texts.getString("ui.homepage"), texts.getString("ui.jalbumskins")));	
+	
+	cont.add(new JLabel("|  "+skin+" Skin  "+(new SkinProperties(skinDirectory).getProperty(SkinProperties.VERSION))));
+	cont.add(new JLinkLabel("http://jalbum.net/skins/skin/"+skin, texts.getString("ui.upgrade"), texts.getString("ui.downloadSkin")));
+	cont.add(new JLabel("|  "));
+	cont.add(new JLinkLabel("file://" + skinDirectory.toString().replace('\\','/') + "/help/index.html", texts.getString("help")));
+	cont.add("p",new JLinkLabel("http://www.jalbumskins.com/imageflow/register.html", "Register ImageFlow"));	
+		
+	//cont.add("br", donation);
+	JScrollPane panel = new JScrollPane(cont);
+	panel.setViewportBorder(BorderFactory.createEmptyBorder());	
+	add("hfill ", panel);	
+}
+};
+
+
+
+
+
+
+PluginContext pc = context.getPluginContext();
+EditPanel editPanel = pc.getEditPanel();
+
+
+	window.messageBox("<html> ImageFlow is configured to use only the Slide images in the Gallery, <br>which are resized to the correct size by the javascript.<br>There is no need to set the size of the Thumbnails.<br><br>Un-Registered Version of ImageFlow</html>");
+
+window.setSkinUI(ui); 
+window.pack();
+Rectangle rect=GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+ 
+int availableWidth=(int)rect.getWidth();
+int availableHeight=(int)rect.getHeight();
+ 
+Dimension dim=window.settingsWindow.getPreferredSize();
+ 
+int settingsWidth=(int)dim.getWidth();
+int settingsHeight=(int)dim.getHeight();
+ 
+if (settingsWidth>availableWidth)
+{
+	settingsWidth=availableWidth;
+}
+ 
+if (settingsHeight>availableHeight)
+{
+	settingsHeight=availableHeight;
+}
+ 
+window.settingsWindow.setPreferredSize(new Dimension(settingsWidth, settingsHeight));

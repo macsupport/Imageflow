@@ -1,0 +1,33 @@
+
+<ja:if test="${jqueryUINone}" value="true"><link rel="stylesheet" title="Standard" href="${resPath}/Aristo/Aristo.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUIDefault}" value="true"><ja:if test="${jqueryUI}" value="Aristo"><link rel="stylesheet" title="Standard" href="${resPath}/Aristo/Aristo.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Artic"><link rel="stylesheet" title="Standard" href="http://cdn.wijmo.com/themes/arctic/jquery-wijmo.css"  type="text/css" media="screen" /></ja:if>	
+<ja:if test="${jqueryUI}" value="Rocket"><link rel="stylesheet" title="Standard" href="http://cdn.wijmo.com/themes/rocket/jquery-wijmo.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Midnight"><link rel="stylesheet" title="Standard" href="http://cdn.wijmo.com/themes/midnight/jquery-wijmo.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Sterling"><link rel="stylesheet" title="Standard" href="http://cdn.wijmo.com/themes/sterling/jquery-wijmo.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Cobalt"><link rel="stylesheet" title="Standard" href="http://cdn.wijmo.com/themes/cobalt/jquery-wijmo.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="UI lightness"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"  type="text/css" media="screen" /></ja:if>	  
+<ja:if test="${jqueryUI}" value="UI darkness">  <link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-darkness/jquery-ui.css"  type="text/css" media="screen" /> </ja:if>
+<ja:if test="${jqueryUI}" value="Smoothness"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery-ui.css"  type="text/css" media="screen" /> </ja:if>
+<ja:if test="${jqueryUI}" value="Start"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/start/jquery-ui.css"  type="text/css" media="screen" /></ja:if>	  
+<ja:if test="${jqueryUI}" value="Redmond"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/redmond/jquery-ui.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Sunny"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/sunny/jquery-ui.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Overcast"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/overcast/jquery-ui.css"  type="text/css" media="screen" /></ja:if>	  
+<ja:if test="${jqueryUI}" value="Le Frog"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/le-frog/jquery-ui.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Flick"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/flick/jquery-ui.css"  type="text/css" media="screen" /> </ja:if>
+<ja:if test="${jqueryUI}" value="Pepper Grinder"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/pepper-grinder/jquery-ui.css"  type="text/css" media="screen" /> </ja:if>	  
+<ja:if test="${jqueryUI}" value="Eggplant"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/eggplant/jquery-ui.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Dark Hive"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/dark-hive/jquery-ui.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Cupertino"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/cupertino/jquery-ui.css"  type="text/css" media="screen" /> </ja:if>	  
+<ja:if test="${jqueryUI}" value="South Street"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/south-street/jquery-ui.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Blitzer"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/blitzer/jquery-ui.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Humanity"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/humanity/jquery-ui.css"  type="text/css" media="screen" /></ja:if>	  
+<ja:if test="${jqueryUI}" value="Hot sneaks"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/hot-sneaks/jquery-ui.css"  type="text/css" media="screen" /> </ja:if>
+<ja:if test="${jqueryUI}" value="Excite Bike"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/excite-bike/jquery-ui.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Vader"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/vader/jquery-ui.css"  type="text/css" media="screen" /></ja:if>	  
+<ja:if test="${jqueryUI}" value="Dot Luv"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/dot-luv/jquery-ui.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Mint Choc"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/mint-choc/jquery-ui.css"  type="text/css" media="screen" /> </ja:if>
+<ja:if test="${jqueryUI}" value="Black Tie"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/black-tie/jquery-ui.css"  type="text/css" media="screen" /> </ja:if>	  
+<ja:if test="${jqueryUI}" value="Trontastic"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/trontastic/jquery-ui.css"  type="text/css" media="screen" /></ja:if>
+<ja:if test="${jqueryUI}" value="Swanky Purse"><link rel="stylesheet" title="Standard" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/swanky-purse/jquery-ui.css"  type="text/css" media="screen" /></ja:if></ja:if>
+<ja:if test="${jqueryUICustom}" value="true"><link rel="stylesheet" title="Standard" href="$resPath/custom-theme/${jqueryUIName}"  type="text/css" media="screen" /></ja:if>	  

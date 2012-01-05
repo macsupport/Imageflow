@@ -1,0 +1,282 @@
+/*General styles*/
+select option {
+	margin: 4px;
+}
+
+input:-moz-focus-inner {
+	border: 0;
+}
+
+.iphorm-container {
+    margin: 0 auto;
+    width: 350px;
+}
+
+.iphorm-wrapper {
+	width: 400px;
+	margin: 0 auto;
+	padding-bottom: 25px;
+	margin-top: 10px;
+}
+
+.iphorm-message p {
+    text-align: center;
+}
+
+.iphorm-inner {
+	margin: 0px;
+	border: 1px solid #C6C6C6;
+	/*Rounded corners*/
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding-top: 10px;
+	padding-right: 25px;
+	padding-bottom: 25px;
+	padding-left: 25px;
+}
+.form-title {
+	font-size: 12px;
+	font-weight: bold;
+	color: #0099FF;
+	padding-top: 4px;
+	padding-right: 15px;
+	padding-bottom: 4px;
+	padding-left: 15px;
+	border: 1px solid #C6C6C6;
+	background-color: #FFFFFF;
+	background: url('../images/button_bg.png') repeat center top;
+	text-shadow: #F5F5F5 1px 1px 0px;
+	/*Rounded corners*/
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	margin-bottom: 15px;
+}
+
+/*input, select and textarea styles*/
+
+.input-wrapper input, .input-wrapper select, .input-wrapper textarea {
+	color: #333333;
+	padding-top: 5px;
+	padding-right: 3px;
+	padding-bottom: 5px;
+	padding-left: 3px;
+	width: 238px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	border: 0;
+}
+
+.input-wrapper input {
+	line-height: 14px;
+	height: 14px;
+}
+
+.input-wrapper select {
+	width: 243px;
+}
+
+.input-wrapper input:focus, .input-wrapper select:focus, .input-wrapper textarea:focus {
+	background-color: #F2F2F2;
+}
+
+.captcha-input-wrapper input {
+	width: 95px;
+}
+
+label.check-box input {
+	width: 20px;
+}
+
+input#subject {
+	float: left;
+	width: 220px;
+}
+
+/*Label style*/
+.element-wrapper label {
+	font-weight: bold;
+	line-height: 18px;
+	float: left;
+	width: 100px;
+	background-color: #F9F9F9;
+	padding-top: 3px;
+	padding-left: 3px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #b4b4b4;
+	height: 21px;
+}
+
+.message-element-wrapper label {
+	height: 127px;
+}
+
+.subject-element-wrapper label {
+	line-height: 23px;
+	height: 23px;
+}
+
+.captcha-element-wrapper label {
+	width: 170px;
+}
+
+label.check-box {
+	display: block;
+	font-weight: normal;
+}
+
+.red {
+	font-weight: normal;
+	color: #CC0000;
+}
+/*Error styles*/
+.iphorm-container ul.form-errors {
+    margin: 0;
+    padding: 0;
+    display: none;
+}
+
+.iphorm-container ul.form-errors li {
+	background-image: url('../images/err.png');
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	padding-top: 4px;
+	padding-right: 10px;
+	padding-bottom: 4px;
+	padding-left: 30px;
+	list-style-type: none;
+	color: #CC0000;
+	background-color: #F3CAC7;
+	margin: 0;
+}
+
+div.error-message {
+    background-color: #F3CAC7;
+    border: 1px solid #FF7E7E;
+    margin-bottom: 5px;
+}
+
+div.message {
+    padding: 5px;   
+}
+
+/*Non JS error message*/
+
+
+ul.errors-no-js li {
+	margin-left: 0px;
+	line-height: 22px;
+	padding-left: 0px;
+	list-style-type: none;
+	font-weight: bold;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 4px;
+}
+
+ul.errors-no-js li ul li {
+	background-image: url(../images/err.png);
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	padding-top: 3px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-left: 30px;
+	list-style-type: none;
+	color: #CC0000;
+	line-height: 19px;
+	background-color: #F3CAC7;
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	display: inline-block;
+	/*Rounded corners*/
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/*Other form styles*/
+
+.iphorm-container .message-element {
+    height: 120px;
+    width: 238px;	
+}
+.iphorm-container .captcha-hidden-wrapper {
+    display: none;
+}
+
+.iphorm-container .element-wrapper {
+	margin-bottom: 5px;
+	background-color: #FFFFFF;
+	border: 1px solid #b4b4b4;
+}
+a.cancel-button {
+	background-image: url('../images/close.png');
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	float: left;
+	height: 16px;
+	width: 16px;
+	margin-top: 4px;
+}
+/*Send button styles*/
+.submit-button-input-wrapper {
+    height: 27px;
+    font-size: 15px;
+}
+
+.submit-button-input-wrapper input {
+	background: url('../images/button_bg.png') repeat center top;
+	height: 27px;
+	width: 75px;
+	padding: 1px 12px 0;
+	cursor: pointer;
+	border-color: #CCCCCC #999999 #999999 #CCCCCC;
+    border-style: solid;
+    border-width: 1px;;
+	display: inline-block;
+	float: right;
+}
+
+.submit-button-input-wrapper input:active {
+    background:none repeat scroll 0 0 #EEEEEE;
+    padding-left: 13px;
+    padding-right: 11px;
+    outline: 0 none;	
+}
+
+.submit-button-input-wrapper input::-moz-focus-inner  {
+    border: 0;
+}
+
+/*Captcha*/
+.captcha-img {
+	float: left;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #b4b4b4;
+	padding-top: 1px;
+	height:23px
+}
+
+/*Success (message sent)*/
+.success-message {
+	font-weight: bold;
+	padding-left: 25px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	background-image: url(../images/success.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.success-message img {
+	float: left;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}

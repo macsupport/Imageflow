@@ -1,0 +1,10 @@
+Name: ImageFlow
+Version: 4.1
+Assembled by: Mike Sozanski
+Date: August 11, 2011
+email: macsupport {at} comcast {dot} net
+
+
+ContentFlow is a flexible CoverflowTM / ImageFlow like flow written in javascript, which can handle any kind of content. It supports all new and old major and not so major browsers. It's distributed under the MIT License. 
+
+ClearBox is a javascript LightBox gallery script. It can show individual image, image galleries and other content including Flash, Quicktime, Windows Media format, HTML, inner content, etc. Use of Clearbox for private purposes is free. If you would like to use it on commercial pages, please contact the developer, George Krupa.
